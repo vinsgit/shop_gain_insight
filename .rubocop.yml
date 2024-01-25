@@ -1,0 +1,344 @@
+inherit_from: .rubocop_todo.yml
+
+require:
+  - rubocop-performance
+  - rubocop-rails
+  - rubocop-rake
+  # TODO: enable these
+  #- rubocop-rspec
+
+AllCops:
+  TargetRubyVersion: 3.2
+  NewCops: enable
+  SuggestExtensions: false
+  Exclude:
+    - 'bin/**/*'
+    - 'vendor/bundle/**/*'
+
+# TODO: exclude this in file
+Rails/I18nLocaleAssignment:
+  Exclude:
+    - 'spec/spec_helper.rb'
+
+Bundler/OrderedGems:
+  Enabled: false
+
+Gemspec/OrderedDependencies:
+  Enabled: false
+
+Gemspec/RequiredRubyVersion:
+  Enabled: false
+
+Gemspec/RequireMFA:
+  Enabled: false
+
+Layout/EmptyLineAfterGuardClause:
+  Enabled: false
+
+Layout/EmptyLinesAroundBlockBody:
+  Enabled: false
+
+Layout/EmptyLinesAroundClassBody:
+  Enabled: false
+
+Layout/EmptyLinesAroundExceptionHandlingKeywords:
+  Enabled: false
+
+Layout/EmptyLinesAroundModuleBody:
+  Enabled: false
+
+Layout/LineLength:
+  Enabled: false
+
+Layout/SpaceInsideArrayLiteralBrackets:
+  Enabled: false
+
+Layout/SpaceInsideBlockBraces:
+  SpaceBeforeBlockParameters: false
+
+# Multiple module parent blocks can be on the base level (zero-indented)
+Layout/IndentationWidth:
+  AllowedPatterns:
+    - '^\s*module'
+
+Lint/NoReturnInBeginEndBlocks:
+  Enabled: false
+
+Lint/BooleanSymbol:
+  Enabled: false
+
+Lint/NonLocalExitFromIterator:
+  Enabled: false
+
+Lint/ScriptPermission:
+  Exclude:
+    - 'Rakefile'
+
+#Metrics/BlockLength:
+#  Exclude:
+#    - 'Gemfile'
+#    - 'config/routes.rb'
+#    - 'db/schema.rb'
+#    - 'db/migrate/**/*'
+#    - '**/spec/**/*'
+#    - '**/*.gemspec'
+#    - '**/*.rake'
+#    - '**/*.xls.builder'
+
+# TODO: Migrate from rubocop-todo
+#Naming/PredicateName:
+#  Exclude:
+#    - '**/*_serializer.rb'
+
+Naming/InclusiveLanguage:
+  Enabled: false
+
+Security/YAMLLoad:
+  Enabled: false
+
+Style/Alias:
+  EnforcedStyle: prefer_alias_method
+
+Style/AndOr:
+  EnforcedStyle: conditionals
+
+Style/CollectionMethods:
+  PreferredMethods:
+    detect: detect
+    find: detect
+    inject: inject
+    reduce: inject
+
+Style/Documentation:
+  Enabled: false
+
+Style/DocumentDynamicEvalDefinition:
+  Enabled: false
+
+Style/DoubleNegation:
+  Enabled: false
+
+Style/EmptyElse:
+  Enabled: false
+
+Style/EmptyMethod:
+  EnforcedStyle: expanded
+
+Style/FetchEnvVar:
+  Enabled: false
+
+Style/FormatStringToken:
+  Enabled: false
+
+Style/HashSyntax:
+  EnforcedShorthandSyntax: never
+
+Style/Lambda:
+  EnforcedStyle: literal
+
+Style/ModuleFunction:
+  EnforcedStyle: extend_self
+
+Style/MutableConstant:
+  Enabled: false
+
+Style/NumericLiterals:
+  MinDigits: 15
+  Exclude:
+    - 'db/schema.rb'
+
+Style/NumericPredicate:
+  Enabled: false
+
+Style/RaiseArgs:
+  EnforcedStyle: compact
+
+Style/RescueModifier:
+  Enabled: false
+
+Style/Semicolon:
+  Exclude:
+    - '**/spec/**/*'
+
+Style/StringLiterals:
+  Enabled: false
+
+Style/SymbolArray:
+  EnforcedStyle: percent
+
+Style/WhileUntilModifier:
+  Enabled: false
+
+Style/WordArray:
+  Exclude:
+    - 'db/schema.rb'
+
+# ---
+# Spec excludes
+
+Lint/AmbiguousBlockAssociation:
+  Exclude:
+    - '**/spec/**/*'
+
+Lint/AmbiguousRegexpLiteral:
+  Exclude:
+    - '**/spec/**/*'
+
+Style/EmptyLiteral:
+  Enabled: false
+
+# ---
+# Disable all metrics for now
+
+Metrics/AbcSize:
+  Enabled: false
+
+Metrics/BlockLength:
+  Enabled: false
+
+Metrics/BlockNesting:
+  Enabled: false
+
+Metrics/ClassLength:
+  Enabled: false
+
+Metrics/CyclomaticComplexity:
+  Enabled: false
+
+Metrics/MethodLength:
+  Enabled: false
+
+Metrics/ModuleLength:
+  Enabled: false
+
+Metrics/ParameterLists:
+  Enabled: false
+
+Metrics/PerceivedComplexity:
+  Enabled: false
+
+# ---
+# Rails
+
+Rails:
+  Enabled: true
+
+Rails/ActiveRecordAliases:
+  Enabled: false # not used for Mongoid
+
+Rails/ApplicationController:
+  Enabled: false
+
+Rails/ApplicationMailer:
+  Enabled: false
+
+Rails/Date:
+  EnforcedStyle: flexible
+
+Rails/Delegate:
+  EnforceForPrefixed: false
+
+Rails/FilePath:
+  EnforcedStyle: slashes
+
+Rails/RakeEnvironment:
+  Enabled: false
+
+Rails/RedundantPresenceValidationOnBelongsTo:
+  Enabled: false # not used for Mongoid
+
+Rails/OutputSafety:
+  Enabled: false
+
+Rails/SkipsModelValidations:
+  ForbiddenMethods:
+    - update_attribute
+    - update_column
+    - update_columns
+  Exclude:
+    - '**/spec/**/*'
+
+Rails/UnknownEnv:
+  Environments:
+    - production
+    - staging
+    - development
+    - test
+
+# ---
+
+# Fix after https://github.com/mongodb/mongoid/pull/5000
+Performance/Count:
+  Exclude:
+    - 'engines/vesper_core/app/models/vesper/core/question.rb'
+    - 'engines/vesper_core/app/models/vesper/survey/survey_question.rb'
+
+# Not compatible with Mongoid -- needs PR
+Rails/WhereExists:
+  Enabled: false
+
+# Remove after https://github.com/rubocop/rubocop-rails/issues/938
+Rails/WhereNotWithMultipleConditions:
+  Exclude:
+    - 'engines/vesper_core/app/services/vesper/table/table_migrater.rb'
+
+# Remove after https://github.com/rubocop-hq/rubocop/issues/10080
+Lint/AmbiguousOperatorPrecedence:
+  Enabled: false
+
+# Remove after https://github.com/rubocop-hq/rubocop/issues/8500
+Lint/SafeNavigationChain:
+  Exclude:
+    - 'engines/table_solution/app/controllers/table_solution/users_controller.rb'
+    - 'engines/table_solution/app/excel/table_solution/monthly_pack_excel/query_context.rb'
+    - 'engines/vesper_core/app/models/vesper/table/provider_action.rb'
+    - 'engines/vesper_core/app/services/vesper/table/scraper_auto_importer.rb'
+    - 'engines/vesper_core/app/services/vesper/table/scraper_auto_importer.rb'
+
+# Remove after https://github.com/rubocop/rubocop/issues/9815
+Style/RedundantBegin:
+  Enabled: false
+
+# Remove after https://github.com/rubocop/rubocop/issues/9816
+Lint/SafeNavigationConsistency:
+  Exclude:
+    - 'engines/vesper_core/app/services/vesper/table/provider_action_linker.rb'
+
+# Enable after line length set
+Style/IfUnlessModifier:
+  Enabled: false
+
+# StructInheritance should not be used as currently
+# constants are defined inside Struct-inherited classes.
+# These constants will bleed into the parent scope.
+Style/StructInheritance:
+  Enabled: false
+
+# ---
+# TODO: Enable these cops
+
+Style/MultilineTernaryOperator:
+  Enabled: false
+
+Lint/StructNewOverride:
+  Enabled: false
+
+Layout/HashAlignment:
+  Enabled: false
+  # EnforcedHashRocketStyle: [key, table]
+  # EnforcedColonStyle: [key, table]
+
+Layout/FirstHashElementIndentation:
+  Enabled: false
+
+# Layout/EndOfLine:
+#   Enabled: false
+
+# ---
+# TODO: Periodically check these cops
+#Layout/ExtraSpacing:
+#  Exclude:
+#    - 'db/migrate/*.rb'
+#    - '**/spec/factories/*.rb'
+Layout/ExtraSpacing:
+  Enabled: false

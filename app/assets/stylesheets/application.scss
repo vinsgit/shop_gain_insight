@@ -1,0 +1,15 @@
+/*
+ *= require_self
+ */
+
+@import 'bootstrap';
+
+.hover-gray {
+  &:hover {
+    background-color: gainsboro;
+  }
+}
+
+.inactive {
+  opacity: 0.3;
+}
