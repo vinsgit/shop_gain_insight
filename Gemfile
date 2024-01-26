@@ -35,3 +35,4 @@ end
 
 gem 'simple_form', '~> 5.2'
 gem 'jquery-rails'
+gem 'devise'

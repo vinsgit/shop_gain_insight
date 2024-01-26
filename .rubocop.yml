@@ -19,6 +19,8 @@ AllCops:
 Rails/I18nLocaleAssignment:
   Exclude:
     - 'spec/spec_helper.rb'
+Style/Documentation:
+  Enabled: false
 
 Bundler/OrderedGems:
   Enabled: false
@@ -108,9 +110,6 @@ Style/CollectionMethods:
     find: detect
     inject: inject
     reduce: inject
-
-Style/Documentation:
-  Enabled: false
 
 Style/DocumentDynamicEvalDefinition:
   Enabled: false
