@@ -19,7 +19,24 @@ AllCops:
 Rails/I18nLocaleAssignment:
   Exclude:
     - 'spec/spec_helper.rb'
-Style/Documentation:
+
+Style/FrozenStringLiteralComment:
+  Exclude:
+    - 'app/channels/application_cable/channel.rb'
+    - 'app/channels/application_cable/connection.rb'
+    - 'app/controllers/application_controller.rb'
+    - 'app/controllers/home_controller.rb'
+    - 'app/jobs/application_job.rb'
+    - 'app/mailers/application_mailer.rb'
+    - 'config/importmap.rb'
+    - 'config/initializers/filter_parameter_logging.rb'
+    - 'db/migrate/20240128055501_create_investors.rb'
+    - 'test/application_system_test_case.rb'
+    - 'test/channels/application_cable/connection_test.rb'
+    - 'test/test_helper.rb'
+    - 'db/*'
+
+Rails/I18nLocaleTexts:
   Enabled: false
 
 Bundler/OrderedGems:
@@ -110,6 +127,9 @@ Style/CollectionMethods:
     find: detect
     inject: inject
     reduce: inject
+
+Style/Documentation:
+  Enabled: false
 
 Style/DocumentDynamicEvalDefinition:
   Enabled: false

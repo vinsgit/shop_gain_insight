@@ -1,0 +1,6 @@
+<%= simple_form_for @sku do |f| %>
+  <%= f.input :name, label: 'SKU' %>
+  <%= f.button :submit, '提交', class: 'btn btn-primary' %>
+<% end %>
+
+<%= link_to '返回', :back, class: 'btn btn-primary' %>

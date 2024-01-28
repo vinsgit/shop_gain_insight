@@ -1,0 +1,19 @@
+<table class="table">
+  <thead>
+    <tr>
+      <th>店名</th>
+      <th>操作</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @shops.each do |shop| %>
+      <tr>
+        <td><%= shop.name %></td>
+        <td>
+          <%= link_to '修改', edit_shop_path(shop), class: 'btn btn-primary btn-sm' %>
+          <%= link_to '详情', shop_path(shop), class: 'btn btn-info btn-sm' %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

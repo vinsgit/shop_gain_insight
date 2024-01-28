@@ -1,0 +1,21 @@
+<table class="table">
+  <thead>
+    <tr>
+      <th>SKU</th>
+      <th>操作</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @skus.each do |sku| %>
+      <tr>
+        <td><%= sku.name %></td>
+        <td>
+          <%= link_to '修改', edit_sku_path(sku), class: 'btn btn-primary btn-sm' %>
+          <%= link_to '详情', sku_path(sku), class: 'btn btn-info btn-sm' %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%= link_to '返回', :back, class: 'btn btn-primary' %>

@@ -4,8 +4,16 @@ Rails.application.routes.draw do
   devise_for :users, skip: [:registrations, :passwords]
 
   root 'home#index'
-  # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
-  # Defines the root path route ('/')
-  # root 'articles#index'
+  resources :shops, only: [:new, :edit, :index, :create, :update]
+  resources :investors, only: [:new, :edit, :index, :create, :update] do
+    collection do
+      delete :remove
+    end
+  end
+  resources :skus, only: [:new, :edit, :index, :create, :update] do
+    collection do
+      delete :remove
+    end
+  end
 end

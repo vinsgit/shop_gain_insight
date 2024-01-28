@@ -1,0 +1,19 @@
+<table class="table">
+  <thead>
+    <tr>
+      <th>投资人</th>
+      <th>操作</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @investors.each do |investor| %>
+      <tr>
+        <td><%= investor.name %></td>
+        <td>
+          <%= link_to '修改', edit_investor_path(investor), class: 'btn btn-primary btn-sm' %>
+          <%= link_to '详情', investor_path(investor), class: 'btn btn-info btn-sm' %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
