@@ -1,0 +1,7 @@
+<div class="nested-fields">
+  <%= f.input :ratio, label: '比例' %>
+  <%= f.input :start_at, label: '生效时间', as: :string, input_html: { class: 'flatpickr' } %>
+  <%= f.input :end_at, label: '结束时间', as: :string, input_html: { class: 'flatpickr' } %>
+</div>
+<%= f.remove_nested_fields_link '删除' %>
+<hr>

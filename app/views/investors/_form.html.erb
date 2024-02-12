@@ -1,17 +1,26 @@
 <%= simple_form_for @investor do |f| %>
-  <%= f.input :name, label: '名字' %>
-  <%= f.simple_fields_for :equity_allocation_record do |ff| %>
-    <%= ff.input :ratio, label: '比例' %>
-    <%= ff.input :start_at, label: '生效时间' %>
-    <%= ff.input :end_at, label: '停止时间' %>
+  <div class='row'>
+    <div class='col-md-4'>
+    <%= f.input :name, label: '名字' %>
+    </div>
+  </div>
+  <%= f.nested_fields_for :equity_allocation_records do |ff| %>
+    <%= render 'equity_allocation_record_fields', f: ff %>
   <% end %>
+  <%= f.add_nested_fields_link :equity_allocation_records, '添加分成' %>
+  <br>
   <%= f.button :submit, '提交', class: 'btn btn-primary' %>
 <% end %>
+
 
 <%= render 'shared/back' %>
 
 <script>
   $(document).ready(function(){
-    flatpickr('#investor_equity_allocation_record_start_at, #investor_equity_allocation_record_end_at');
+    flatpickr('.flatpickr');
   });
+
+  $(document).on('fields_added.nested_form_fields', function(){
+    flatpickr('.flatpickr:not(.flatpickr-input)');
+  })
 </script>

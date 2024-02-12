@@ -2,8 +2,5 @@
 
 class Investor < ApplicationRecord
   has_many :equity_allocation_records, dependent: :destroy
-
-  def save_allocation(ratio:, start_at:, end_at:)
-    equity_allocation_records.create(ratio: ratio, start_at: start_at, end_at: end_at)
-  end
+  accepts_nested_attributes_for :equity_allocation_records, allow_destroy: true
 end

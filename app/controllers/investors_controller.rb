@@ -16,7 +16,6 @@ class InvestorsController < ApplicationController
   def create
     investor = Investor.new(investor_params)
     if investor.save
-      investor.save_allocation(**allocation_records_params)
       redirect_to investors_path, notice: '创建成功'
     else
       render :new
@@ -35,16 +34,7 @@ class InvestorsController < ApplicationController
   private
 
   def investor_params
-    params.require(:investor).permit(:name)
+    params.require(:investor).permit(:name, equity_allocation_records_attributes: [:id, :ratio, :start_at, :end_at, :_destroy])
   end
 
-  def allocation_records_params
-    hash = params.require(:investor).permit(equity_allocation_record: %i[start_at end_at ratio]).require('equity_allocation_record').to_h
-
-    {
-      ratio: hash['ratio'],
-      start_at: hash['start_at'],
-      end_at: hash['end_at']
-    }
-  end
 end
