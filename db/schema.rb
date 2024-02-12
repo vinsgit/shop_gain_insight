@@ -10,7 +10,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_01_28_056552) do
+ActiveRecord::Schema[7.0].define(version: 2024_02_12_092710) do
+  create_table "equity_allocation_records", force: :cascade do |t|
+    t.integer "investor_id"
+    t.integer "ratio", default: 0
+    t.datetime "start_at"
+    t.datetime "end_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "investors", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false

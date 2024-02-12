@@ -36,3 +36,6 @@ end
 gem 'simple_form', '~> 5.2'
 gem 'jquery-rails'
 gem 'devise'
+gem 'roo-xls'
+gem 'roo'
+gem 'flatpickr_rails'
