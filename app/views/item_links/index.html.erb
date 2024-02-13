@@ -1,0 +1,23 @@
+<table class="table">
+  <thead>
+    <tr>
+      <th>链接名</th>
+      <th>包含SKU数量</th>
+      <th>操作</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @item_links.each do |item_link| %>
+      <tr>
+        <td><%= item_link.name %></td>
+        <td><%= item_link.skus.count %></td>
+        <td>
+          <%= link_to '修改', edit_item_link_path(item_link), class: 'btn btn-primary btn-sm' %>
+          <%= link_to '详情', item_link_path(item_link), class: 'btn btn-info btn-sm' %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%= link_to '返回', :back, class: 'btn btn-primary' %>
