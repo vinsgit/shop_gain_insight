@@ -56,9 +56,15 @@ SimpleForm.setup do |config|
     b.optional :min_max
     b.optional :readonly
     b.use :label, class: 'form-label'
-    b.use :input, class: 'form-control', error_class: 'is-invalid', valid_class: 'is-valid'
     b.use :full_error, wrap_with: { class: 'invalid-feedback' }
     b.use :hint, wrap_with: { class: 'form-text' }
+    b.wrapper :tag => 'div', :class => 'row' do |row|
+      row.wrapper :tag => 'div', :class => 'col-md-4' do |col|
+        col.use :input, class: 'form-control', error_class: 'is-invalid', valid_class: 'is-valid'
+        col.use :hint, wrap_with: { tag: 'p', class: 'hint' }
+        col.use :error, wrap_with: { tag: 'p', class: 'error' }
+      end
+    end
   end
 
   # vertical input for boolean

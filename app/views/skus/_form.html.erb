@@ -1,7 +1,39 @@
-<%= simple_form_for @sku do |f| %>
+<% if action_name.in?(['new', 'create']) %>
+  <button id='import-toggle' class='btn btn-info'>
+    切换导入方式
+  </button>
+<% end %>
+<%= simple_form_for @sku, html: { class: 'sku-form' } do |f| %>
+  <% if action_name.in?(['new', 'create']) %>  
+    <%= f.input :file, label: '通过文件导入', as: :file, input_html: { class: 'form-control' } %>
+  <% end %>
   <%= f.input :name, label: 'SKU' %>
-  <%= f.input :file, as: :file, input_html: { class: 'form-control' } %>
+  <%= f.input :fba_ship_cost, label: 'FBA运费' %>
+  <%= f.input :fba_cost, label: 'FBA成本' %>
+  <%= f.input :fbm_ship_cost, label: 'FBM运费' %>
+  <%= f.input :fbm_cost, label: 'FBM成本' %>
+  <%= f.input :extra_cost, label: '额外成本' %>
+  <%= f.input :note, label: '备注' %>
   <%= f.button :submit, '提交', class: 'btn btn-primary' %>
 <% end %>
 
 <%= render 'shared/back' %>
+
+<script>
+  $(document).ready(function() {
+    $('#import-toggle').click(function() {
+      let skuVisible = $('.sku_name').is(':visible');
+      let fileVisible = $('.sku_file').is(':visible');
+
+      $('.sku-form')[0].reset()
+
+      if (skuVisible) {
+        $('.sku_name,.sku_fba_ship_cost,.sku_fba_cost,.sku_fbm_ship_cost,.sku_fbm_cost,.sku_extra_cost,.sku_note').hide();
+        $('.sku_file').show();
+      } else if (fileVisible) {
+        $('.sku_file').hide();
+        $('.sku_name,.sku_fba_ship_cost,.sku_fba_cost,.sku_fbm_ship_cost,.sku_fbm_cost,.sku_extra_cost,.sku_note').show();
+      }
+    });
+  });
+</script>

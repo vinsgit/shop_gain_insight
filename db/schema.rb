@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_02_13_062651) do
+ActiveRecord::Schema[7.0].define(version: 2024_02_13_083414) do
   create_table "equity_allocation_records", force: :cascade do |t|
     t.integer "investor_id"
     t.integer "ratio", default: 0
@@ -49,6 +49,12 @@ ActiveRecord::Schema[7.0].define(version: 2024_02_13_062651) do
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.decimal "fba_cost", default: "0.0"
+    t.decimal "fbm_cost", default: "0.0"
+    t.decimal "fba_ship_cost", default: "0.0"
+    t.decimal "fbm_ship_cost", default: "0.0"
+    t.decimal "extra_cost", default: "0.0"
+    t.string "note"
   end
 
   create_table "users", force: :cascade do |t|
