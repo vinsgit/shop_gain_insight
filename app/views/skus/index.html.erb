@@ -2,6 +2,7 @@
   <thead>
     <tr>
       <th>SKU</th>
+      <th>售价</th>
       <th>操作</th>
     </tr>
   </thead>
@@ -9,9 +10,11 @@
     <% @skus.each do |sku| %>
       <tr>
         <td><%= sku.name %></td>
+        <td><%= sku.price %> $</td>
         <td>
           <%= link_to '修改', edit_sku_path(sku), class: 'btn btn-primary btn-sm' %>
-          <%= link_to '详情', sku_path(sku), class: 'btn btn-info btn-sm' %>
+          <!-- TODO 详情页 TBD -->
+          <% link_to '详情', sku_path(sku), class: 'btn btn-info btn-sm' %>
         </td>
       </tr>
     <% end %>

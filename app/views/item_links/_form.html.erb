@@ -1,6 +1,7 @@
 <%= simple_form_for @item_link do |f| %>
   <%= f.input :name, label: '链接名' %>
-  <%= f.label :sku_ids, '关联SKU' %>
+  <%= f.input :shop_id, label: '所属店铺', collection: Shop.all.map{ |c| [c.name, c.id] }, selected: @item_link.shop_id %>
+  <%= f.label :sku_ids, '包含SKU' %>
   <%= f.select :sku_ids, options_for_select(Sku.all.map{ |s| [s.name, s.id] }, @sku_ids), {}, { multiple: true, class: 'form-control select2' } %>
   <div class="mt-3">
     <%= f.button :submit, '提交', class: 'btn btn-primary' %>

@@ -6,16 +6,16 @@ module Sheet
 
     def initialize(file)
       @file = file
-      @sheet = Roo::Spreadsheet.open(file)
+      @sheet = Roo::Spreadsheet.open(file, encoding: 'iso-8859-1')
     end
 
     def header
       @sheet.row(1)
     end
 
-    def content
+    def content(&b)
       (first_row..last_row).map do |i|
-        row(i)
+        yield(row(i))
       end.compact_blank!
     end
 

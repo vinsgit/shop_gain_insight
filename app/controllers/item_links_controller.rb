@@ -36,6 +36,6 @@ class ItemLinksController < ApplicationController
   private
 
   def item_link_params
-    params.require(:item_link).permit(:name, sku_ids: [])
+    params.require(:item_link).permit(:name, :shop_id, sku_ids: [])
   end
 end

@@ -14,11 +14,20 @@ class SkusController < ApplicationController
   end
 
   def create
-    sku = Sku.new(sku_params)
-    if sku.save
-      redirect_to skus_path, notice: '创建成功'
+    if params.dig(:sku, :file).present?
+      success = sku_import_service.perform!(params[:sku][:shop_id])
+      if success
+        redirect_to skus_path, notice: '创建成功'
+      else
+        redirect_to skus_path, alert: '导入文件列名改变，请检查文件或联系管理员'
+      end
     else
-      render :new
+      sku = Sku.new(sku_params)
+      if sku.save
+        redirect_to skus_path, notice: '创建成功'
+      else
+        render :new
+      end
     end
   end
 
@@ -34,6 +43,10 @@ class SkusController < ApplicationController
   private
 
   def sku_params
-    params.require(:sku).permit(:name)
+    params.require(:sku).permit(:name, :shop_id)
+  end
+
+  def sku_import_service
+    Sheet::Sku::Import.new(params[:sku][:file])
   end
 end
