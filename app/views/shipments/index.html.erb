@@ -1,0 +1,26 @@
+<table class="table">
+  <thead>
+    <tr>
+      <th>AWS订单号</th>
+      <th>运单号</th>
+      <th>费用</th>
+      <th>渠道</th>
+      <th>记录时间</th>
+      <th>操作</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @shipments.each do |r| %>
+      <tr>
+        <td><%= r.aws_order_ref %></td>
+        <td><%= r.order_ref %></td>
+        <td><%= r.total_fee %></td>
+        <td><%= r.channel_in_text %></td>
+        <td><%= r.transaction_at&.strftime('%Y-%m-%d %H:%M:%S') %></td>
+        <td>
+          <%= link_to '修改', edit_shipment_path(r), class: 'btn btn-primary btn-sm' %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

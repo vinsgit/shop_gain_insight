@@ -1,0 +1,11 @@
+<%= simple_form_for @shipment do |f| %>
+  <%= f.input :aws_order_ref, label: 'aws订单号' %>
+  <%= f.input :order_ref, label: '运单号' %>
+  <%= f.input :total_fee, label: '费用(￥)' %>
+  <%= f.input :transaction_at, as: :string, label: '记录时间', input_html: { class: 'flatpickr' } %>
+  <%= f.input :channel, label: '渠道', collection: Shipment.channel_options.invert.to_a, selected: @shipment.channel %>
+
+  <%= f.button :submit, '提交', class: 'btn btn-primary' %>
+<% end %>
+
+<%= render 'shared/back' %>

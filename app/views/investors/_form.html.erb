@@ -16,10 +16,6 @@
 <%= render 'shared/back' %>
 
 <script>
-  $(document).ready(function(){
-    flatpickr('.flatpickr');
-  });
-
   $(document).on('fields_added.nested_form_fields', function(){
     flatpickr('.flatpickr:not(.flatpickr-input)');
   })
