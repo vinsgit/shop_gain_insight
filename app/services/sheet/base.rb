@@ -7,7 +7,8 @@ module Sheet
     abstract_methods :match_fields,
                      :header,
                      :first_row,
-                     :last_row
+                     :last_row,
+                     :attributes
 
     def initialize(file)
       @file = file
@@ -61,5 +62,10 @@ module Sheet
       match_fields.size == match_result.size
     end
 
+    def preset_attributes_for_shipments(shipment, channel)
+      shipment.shop_id ||= shop_id
+      shipment.channel ||= channel
+      shipment.transaction_at ||= Time.current
+    end
   end
 end

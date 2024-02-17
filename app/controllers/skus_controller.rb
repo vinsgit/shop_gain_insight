@@ -4,7 +4,8 @@ class SkusController < ApplicationController
   before_action :authenticate_current_shop!
 
   def index
-    @skus = Sku.all
+    @q = Sku.ransack(params[:q])
+    @pagy, @skus = pagy(@q.result, items: 25)
   end
 
   def new

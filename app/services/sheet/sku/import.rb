@@ -18,11 +18,8 @@ module Sku
     private
 
     def attributes
-      sku_index = match_result[:sku]
-      price_index = match_result[:price]
-
       compose_content do |c|
-        { sku: c[sku_index], price: c[price_index] }
+        { sku: c[match_result[:sku]], price: c[match_result[:price]] }
       end
     end
 

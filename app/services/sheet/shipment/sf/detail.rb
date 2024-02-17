@@ -8,9 +8,7 @@ module Sf
       attributes.each do |att|
         r = ::Shipment.find_or_initialize_by(order_ref: att[:order_ref])
         r.aws_order_ref = att[:aws_order_ref]
-        r.shop_id ||= shop_id
-        r.channel ||= 'sf'
-        r.transaction_at ||= Time.current
+        preset_attributes_for_shipments(r, 'sf')
         r.save
       end
 

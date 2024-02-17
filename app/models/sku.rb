@@ -5,4 +5,8 @@ class Sku < ApplicationRecord
   belongs_to :shop
 
   validates :name, presence: true, uniqueness: { scope: :shop_id }
+
+  def self.ransackable_attributes(auth_object = nil)
+    %w[name]
+  end
 end
