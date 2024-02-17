@@ -5,6 +5,8 @@ Rails.application.routes.draw do
 
   root 'home#index'
 
+  post '/set_current_shop' => 'home#set_current_shop', as: :set_current_shop
+
   resources :shops, only: [:new, :edit, :index, :create, :update]
   resources :investors, only: [:new, :edit, :index, :create, :update] do
     collection do

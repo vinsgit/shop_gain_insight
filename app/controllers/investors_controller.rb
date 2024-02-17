@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class InvestorsController < ApplicationController
+  before_action :authenticate_current_shop!
+
   def index
     @investors = Investor.all
   end

@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class SkusController < ApplicationController
+  before_action :authenticate_current_shop!
+
   def index
     @skus = Sku.all
   end
@@ -15,7 +17,7 @@ class SkusController < ApplicationController
 
   def create
     if params.dig(:sku, :file).present?
-      success = sku_import_service.perform!(params[:sku][:shop_id])
+      success = sku_import_service.perform!
       if success
         redirect_to skus_path, notice: '创建成功'
       else
@@ -43,7 +45,7 @@ class SkusController < ApplicationController
   private
 
   def sku_params
-    params.require(:sku).permit(:name, :shop_id)
+    params.require(:sku).permit(:name).merge(shop_id: current_shop_id)
   end
 
   def sku_import_service

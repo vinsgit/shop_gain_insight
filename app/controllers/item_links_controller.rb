@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class ItemLinksController < ApplicationController
+  before_action :authenticate_current_shop!
+
   def index
     @item_links = ItemLink.all.includes(:skus)
   end
@@ -36,6 +38,6 @@ class ItemLinksController < ApplicationController
   private
 
   def item_link_params
-    params.require(:item_link).permit(:name, :shop_id, sku_ids: [])
+    params.require(:item_link).permit(:name, sku_ids: []).merge(shop_id: current_shop_id)
   end
 end

@@ -1,3 +1,6 @@
+当前店铺：<%= select_tag 'shop', options_for_select(Shop.all.map{|x| [x.name, x.id]}, current_shop_id), prompt: '设置当前店铺', class: 'form-select form-select-sm current-shop', style: 'max-width: 20%;' %>
+<br>
+
 <%= link_to '创建店铺', new_shop_path, class: 'btn btn-primary' %>
 <%= link_to '创建投资人', new_investor_path, class: 'btn btn-primary' %>
 <%= link_to '创建/导入 SKU', new_sku_path, class: 'btn btn-primary' %>
@@ -7,4 +10,5 @@
 <%= link_to '店铺列表', shops_path, class: 'btn btn-info' %>
 <%= link_to '投资人列表', investors_path, class: 'btn btn-info' %>
 <%= link_to 'SKU列表', skus_path, class: 'btn btn-info' %>
+<%= link_to '物流列表', shipments_path, class: 'btn btn-info' %>
 <%= link_to '链接列表', item_links_path, class: 'btn btn-info' %>

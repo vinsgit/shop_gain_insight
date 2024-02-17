@@ -1,4 +1,6 @@
 class Shipment < ApplicationRecord
+  belongs_to :shop
+
   enum channel: { sf: 0 }
 
   def self.channel_options

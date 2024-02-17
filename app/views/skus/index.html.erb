@@ -3,6 +3,7 @@
     <tr>
       <th>SKU</th>
       <th>售价</th>
+      <th>导入时间</th>
       <th>操作</th>
     </tr>
   </thead>
@@ -11,6 +12,7 @@
       <tr>
         <td><%= sku.name %></td>
         <td><%= sku.price %> $</td>
+        <td><%= sku.created_at.strftime('%Y-%m-%d %H:%M:%S') %> $</td>
         <td>
           <%= link_to '修改', edit_sku_path(sku), class: 'btn btn-primary btn-sm' %>
           <!-- TODO 详情页 TBD -->

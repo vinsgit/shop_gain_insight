@@ -1,4 +1,15 @@
-<%= simple_form_for @shipment do |f| %>
+<% is_new_or_create = action_name.in?(['new', 'create']) %>
+
+<% if is_new_or_create %>
+  <button id='import-toggle' class='btn btn-info'>
+    切换导入方式
+  </button>
+<% end %>
+
+<%= simple_form_for @shipment, html: { class: 'shipment-form' } do |f| %>
+  <% if is_new_or_create %>
+    <%= f.input :file, label: '通过文件导入', as: :file, input_html: { class: 'form-control' } %>
+  <% end %>
   <%= f.input :aws_order_ref, label: 'aws订单号' %>
   <%= f.input :order_ref, label: '运单号' %>
   <%= f.input :total_fee, label: '费用(￥)' %>
@@ -9,3 +20,22 @@
 <% end %>
 
 <%= render 'shared/back' %>
+
+<script>
+  $(document).ready(function() {
+    $('#import-toggle').click(function() {
+      let shipmentVisible = $('.shipment_aws_order_ref').is(':visible');
+      let fileVisible = $('.shipment_file').is(':visible');
+
+      $('.shipment-form')[0].reset()
+
+      if (shipmentVisible) {
+        $('.shipment_order_ref, .shipment_aws_order_ref, .shipment_total_fee, .shipment_transaction_at, .shipment_channel').hide();
+        $('.shipment_file').show();
+      } else if (fileVisible) {
+        $('.shipment_file').hide();
+        $('.shipment_order_ref, .shipment_aws_order_ref, .shipment_total_fee, .shipment_transaction_at, .shipment_channel').show();
+      }
+    });
+  });
+</script>

@@ -1,12 +1,14 @@
 # frozen_string_literal: true
 
 class ShipmentsController < ApplicationController
+  before_action :authenticate_current_shop!
+
   def index
     @shipments = Shipment.all
   end
 
   def new
-    @shipment = Shipment.new
+    @shipment = Shipment.new(transaction_at: Time.current)
   end
 
   def edit
@@ -14,17 +16,30 @@ class ShipmentsController < ApplicationController
   end
 
   def create
-    shipment = Shipment.new(shipment_params)
-    if shipment.save
-      redirect_to shipments_path, notice: '创建成功'
+    if params.dig(:shipment, :file).present?
+      success = shipment_import_service.perform!(current_shop_id)
+      if success
+        redirect_to shipments_path, notice: '创建成功'
+      else
+        redirect_to shipments_path, alert: '导入文件列名改变，请检查文件或联系管理员'
+      end
     else
-      render :new
+      shipment = Shipment.new(shipment_params)
+      if shipment.save
+        redirect_to shipments_path, notice: '创建成功'
+      else
+        render :new
+      end
     end
   end
 
   def update
     shipment = Shipment.find(params[:id])
-    # TODO
+    if shipment.update(shipment_params)
+      redirect_to shipments_path, notice: '更新成功'
+    else
+      render :new
+    end
   end
 
   private
@@ -32,7 +47,8 @@ class ShipmentsController < ApplicationController
   def shipment_params
     params.require(:shipment).permit(:transaction_at, :aws_order_ref, :order_ref, :total_fee, :channel)
   end
+
   def shipment_import_service
-    Sheet::Shipment::Import.new(params[:shipment][:file])
+    Sheet::Shipment::Base.new(params[:shipment][:file])
   end
 end

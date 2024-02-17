@@ -51,10 +51,6 @@ module Sku
       row(1)
     end
 
-    def fields_matched?
-      fields == FIELDS
-    end
-
     def key_fields_not_misplaced?
       FIELDS[3] == fields[3] && FIELDS[5] == fields[5]
     end
