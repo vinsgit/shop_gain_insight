@@ -1,5 +1,18 @@
 <%= link_to '创建/导入 物流', new_shipment_path, class: 'btn btn-primary' %>
 <br>
+<hr>
+<%= search_form_for @q, html: { class: 'form-inline col-sm-2 col-md-3' } do |f| %>
+  <div class="form-group mb-2">
+    <%= f.label :aws_order_ref_cont, 'AWS订单号', class: 'mr-2' %>
+    <%= f.search_field :aws_order_ref_cont, class: 'form-control mr-2' %>
+  </div>
+  <div class="form-group mb-2">
+    <%= f.label :order_ref_cont, '运单号', class: 'mr-2' %>
+    <%= f.search_field :order_ref_cont, class: 'form-control mr-2' %>
+  </div>
+  <%= f.submit '筛选', class: 'btn btn-primary mb-2' %>
+<% end %>
+<hr>
 <table class="table">
   <thead>
     <tr>
@@ -26,3 +39,5 @@
     <% end %>
   </tbody>
 </table>
+
+<%== pagy_bootstrap_nav(@pagy) %>

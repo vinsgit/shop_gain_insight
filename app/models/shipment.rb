@@ -12,4 +12,8 @@ class Shipment < ApplicationRecord
   def channel_in_text
     Shipment.channel_options[channel]
   end
+
+  def self.ransackable_attributes(auth_object = nil)
+    %w[aws_order_ref order_ref]
+  end
 end

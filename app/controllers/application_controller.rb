@@ -1,4 +1,6 @@
 class ApplicationController < ActionController::Base
+  include Pagy::Backend
+
   def current_shop_id
     session[:current_shop_id]
   end

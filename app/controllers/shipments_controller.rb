@@ -4,7 +4,8 @@ class ShipmentsController < ApplicationController
   before_action :authenticate_current_shop!
 
   def index
-    @shipments = Shipment.all
+    @q = Shipment.ransack(params[:q])
+    @pagy, @shipments = pagy(@q.result(distinct: true), items: 25)
   end
 
   def new

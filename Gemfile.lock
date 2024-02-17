@@ -168,6 +168,7 @@ GEM
     nokogiri (1.16.0-arm64-darwin)
       racc (~> 1.4)
     orm_adapter (0.5.0)
+    pagy (7.0.1)
     pry (0.14.2)
       coderay (~> 1.1)
       method_source (~> 1.0)
@@ -209,6 +210,10 @@ GEM
       thor (~> 1.0)
       zeitwerk (~> 2.5)
     rake (13.1.0)
+    ransack (4.1.1)
+      activerecord (>= 6.1.5)
+      activesupport (>= 6.1.5)
+      i18n
     rdoc (6.6.2)
       psych (>= 4.0.0)
     regexp_parser (2.9.0)
@@ -316,9 +321,11 @@ DEPENDENCIES
   jbuilder
   jquery-rails
   nested_form_fields
+  pagy
   pry
   puma (~> 5.0)
   rails (~> 7.0.7)
+  ransack
   roo
   roo-xls
   rspec-rails
