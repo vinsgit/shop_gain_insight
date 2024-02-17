@@ -5,7 +5,7 @@ class ShipmentsController < ApplicationController
 
   def index
     @q = Shipment.ransack(params[:q])
-    @pagy, @shipments = pagy(@q.result(distinct: true), items: 25)
+    @pagy, @shipments = pagy(@q.result, items: 25)
   end
 
   def new
@@ -17,9 +17,8 @@ class ShipmentsController < ApplicationController
   end
 
   def create
-    if params.dig(:shipment, :file).present?
-      success = shipment_import_service.perform!(current_shop_id)
-      if success
+    if params.dig(:shipment, :file).present? || params.dig(:shipment, :file2).present?
+      if perform_import!
         redirect_to shipments_path, notice: '创建成功'
       else
         redirect_to shipments_path, alert: '导入文件列名改变，请检查文件或联系管理员'
@@ -49,7 +48,14 @@ class ShipmentsController < ApplicationController
     params.require(:shipment).permit(:transaction_at, :aws_order_ref, :order_ref, :total_fee, :channel)
   end
 
-  def shipment_import_service
-    Sheet::Shipment::Base.new(params[:shipment][:file])
+  def perform_import!
+    result1 = do_import(params[:shipment][:file])
+    result2 = params[:shipment][:file].present? ? do_import(params[:shipment][:file2]) : true
+
+    result1 && result2
+  end
+
+  def do_import(file)
+    import_service(file).perform!(current_shop_id)
   end
 end

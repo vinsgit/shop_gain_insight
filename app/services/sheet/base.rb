@@ -2,18 +2,27 @@
 
 module Sheet
   class Base
-    # include Abstractable
+    include Abstractable
+
+    abstract_methods :match_fields,
+                     :header,
+                     :first_row,
+                     :last_row
 
     def initialize(file)
       @file = file
       @sheet = Roo::Spreadsheet.open(file, encoding: 'iso-8859-1')
     end
 
+    def perform!(shop_id)
+      import_service.import!(shop_id)
+    end
+
     def header
       @sheet.row(1)
     end
 
-    def content(&b)
+    def compose_content(&b)
       (first_row..last_row).map do |i|
         yield(row(i))
       end.compact_blank!
@@ -30,5 +39,27 @@ module Sheet
     def row(num)
       @sheet.row(num)
     end
+
+    def match_indices_hash(arr)
+      indices = {}
+      match_fields.each do |key, value|
+        index = arr.index(value)
+        indices[key] = index if index
+      end
+      indices
+    end
+
+    def import_service
+      Sheet::Detector.new(@file).detect_class
+    end
+
+    def match_result
+      @match_result ||= match_indices_hash(header)
+    end
+
+    def key_fields_not_existed?
+      match_fields.size == match_result.size
+    end
+
   end
 end

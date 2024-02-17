@@ -1,11 +1,9 @@
 module Sheet
 module Shipment
 module Sf
-  class Detail < Base
-    FIELDS = %w[序号 订单上传时间 客户订单号 平台订单号 顺丰运单号 代理运单号]
-
+  class Detail < Sheet::Base
     def import!(shop_id)
-      return false unless key_fields_not_misplaced?
+      return false unless key_fields_not_existed?
 
       attributes.each do |att|
         r = ::Shipment.find_or_initialize_by(order_ref: att[:order_ref])
@@ -21,19 +19,32 @@ module Sf
 
     private
 
+    def first_row
+      super
+    end
+
+    def last_row
+      super
+    end
+
+    def header
+      super
+    end
+
     def attributes
-      @attributes ||= content do |k|
+      @attributes ||= compose_content do |c|
         {
-          order_ref: k[4],
-          aws_order_ref: k[3]
+          order_ref: c[match_result[:order_ref]],
+          aws_order_ref: c[match_result[:aws_order_ref]]
         }
       end
     end
 
-    def key_fields_not_misplaced?
-      return false if header.blank?
-
-      FIELDS[3] == header[3] && FIELDS[4] == header[4]
+    def match_fields
+      {
+        order_ref: '平台订单号',
+        aws_order_ref: '顺丰运单号'
+      }
     end
   end
 end

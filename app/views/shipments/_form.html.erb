@@ -4,11 +4,21 @@
   <button id='import-toggle' class='btn btn-info'>
     切换导入方式
   </button>
+  <br>
 <% end %>
-
+<div class='btn-group btn-group-toggle' data-toggle='buttons'>
+  <% Shipment::channel_options.values.each do |channel| %>
+    <% is_selected = @shipment.channel_in_text == channel %>
+    <label class="btn me-3 mt-3 mb-3 <%= is_selected ? 'btn-primary' : 'btn-secondary' %>">
+      <%= radio_button_tag(channel, channel, is_selected, class: 'shipment-channel-radios d-none') %>
+      <%= channel %>
+    </label>
+  <% end %>
+</div>
 <%= simple_form_for @shipment, html: { class: 'shipment-form' } do |f| %>
   <% if is_new_or_create %>
     <%= f.input :file, label: '通过文件导入', as: :file, input_html: { class: 'form-control' } %>
+    <%= f.input :file2, label: '通过文件导入', as: :file, input_html: { class: 'form-control' } %>
   <% end %>
   <%= f.input :aws_order_ref, label: 'aws订单号' %>
   <%= f.input :order_ref, label: '运单号' %>
@@ -23,7 +33,7 @@
 
 <script>
   $(document).ready(function() {
-    $('#import-toggle').click(function() {
+    function toggleShipmentForm() {
       let shipmentVisible = $('.shipment_aws_order_ref').is(':visible');
       let fileVisible = $('.shipment_file').is(':visible');
 
@@ -36,6 +46,24 @@
         $('.shipment_file').hide();
         $('.shipment_order_ref, .shipment_aws_order_ref, .shipment_total_fee, .shipment_transaction_at, .shipment_channel').show();
       }
-    });
+    }
+
+    function setActiveLabel() {
+      $('.btn-group-toggle label').removeClass('btn-primary').addClass('btn-secondary');
+      $(this).removeClass('btn-secondary').addClass('btn-primary');
+    }
+
+    function toggleFileFields() {
+      if ($(this).val() == '顺丰') {
+        $('.shipment_file2').show()
+      } else {
+        $('.shipment_file2').hide()
+      }
+    }
+
+    toggleShipmentForm();
+    $('.shipment-channel-radios').click(toggleFileFields);
+    $('#import-toggle').click(toggleShipmentForm);
+    $('.btn-group-toggle label').click(setActiveLabel);
   });
 </script>

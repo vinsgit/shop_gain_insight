@@ -1,11 +1,9 @@
 module Sheet
 module Shipment
 module Sf
-  class Price < Base
-    FIELDS = %w[序号 日期 运单号码 寄件地区 到件地区 对方公司名称 计费重量 产品类型 付款方式 费用(元) 折扣/促销 应付金额 经手人 增值费用]
-
+  class Price < Sheet::Base
     def import!(shop_id)
-      return false unless key_fields_not_misplaced?
+      return false unless key_fields_not_existed?
 
       attributes.each do |att|
         r = ::Shipment.find_or_initialize_by(order_ref: att[:order_ref])
@@ -54,15 +52,16 @@ module Sf
     end
 
     def composed_content
-      content do |c|
-        {order_ref: c[2], total_fee: c[11]}
+      compose_content do |c|
+        { order_ref: c[match_result[:order_ref]], total_fee: c[match_result[:total_fee]] }
       end
     end
 
-    def key_fields_not_misplaced?
-      return false if header.blank?
-
-      FIELDS[2] == header[2] && FIELDS[11] == header[11]
+    def match_fields
+      {
+        order_ref: '运单号码',
+        total_fee: '应付金额'
+      }
     end
   end
 end

@@ -17,6 +17,12 @@
   opacity: 0.3;
 }
 
-.sku_file, .shipment_order_ref, .shipment_aws_order_ref, .shipment_total_fee, .shipment_transaction_at, .shipment_channel {
+.sku-form {
+  .sku_file, .shipment_order_ref, .shipment_aws_order_ref, .shipment_total_fee, .shipment_transaction_at, .shipment_channel {
+    display: none;
+  }
+}
+
+.shipment_file2 {
   display: none;
 }

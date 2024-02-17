@@ -17,7 +17,7 @@ class SkusController < ApplicationController
 
   def create
     if params.dig(:sku, :file).present?
-      success = sku_import_service.perform!
+      success = sku_import_service.perform!(current_shop_id)
       if success
         redirect_to skus_path, notice: '创建成功'
       else
@@ -49,6 +49,6 @@ class SkusController < ApplicationController
   end
 
   def sku_import_service
-    Sheet::Sku::Import.new(params[:sku][:file])
+    import_service(params[:sku][:file])
   end
 end

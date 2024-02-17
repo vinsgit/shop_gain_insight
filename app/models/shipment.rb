@@ -5,7 +5,7 @@ class Shipment < ApplicationRecord
 
   def self.channel_options
     {
-      'sf' => '顺丰'
+      'sf' => '顺丰',
     }
   end
 
