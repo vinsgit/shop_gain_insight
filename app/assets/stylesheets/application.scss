@@ -23,6 +23,17 @@
   }
 }
 
-.shipment_file2 {
-  display: none;
+.shipment-form {
+  .shipment_file2 {
+    display: none;
+  }
+}
+
+.simple_form {
+  .hint {
+    display: none;
+  }
+  p.error {
+    color: red;
+  }
 }

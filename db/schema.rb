@@ -10,10 +10,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_02_16_105928) do
+ActiveRecord::Schema[7.0].define(version: 2024_02_19_162240) do
   create_table "equity_allocation_records", force: :cascade do |t|
     t.integer "investor_id"
-    t.integer "ratio", default: 0
+    t.decimal "ratio", precision: 1, scale: 2
     t.datetime "start_at"
     t.datetime "end_at"
     t.datetime "created_at", null: false
@@ -38,6 +38,25 @@ ActiveRecord::Schema[7.0].define(version: 2024_02_16_105928) do
     t.integer "item_link_id", null: false
     t.index ["item_link_id", "sku_id"], name: "index_item_links_skus_on_item_link_id_and_sku_id"
     t.index ["sku_id", "item_link_id"], name: "index_item_links_skus_on_sku_id_and_item_link_id"
+  end
+
+  create_table "procurement_investors", force: :cascade do |t|
+    t.integer "procurement_id"
+    t.integer "investor_id"
+    t.decimal "ratio", precision: 1, scale: 2
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "procurements", force: :cascade do |t|
+    t.integer "sku_id"
+    t.integer "qty"
+    t.decimal "unit_price", precision: 8, scale: 2
+    t.decimal "total_price", precision: 8, scale: 2
+    t.integer "received_qty"
+    t.string "note"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "shipments", force: :cascade do |t|

@@ -16,8 +16,8 @@ class InvestorsController < ApplicationController
   end
 
   def create
-    investor = Investor.new(investor_params)
-    if investor.save
+    @investor = Investor.new(investor_params)
+    if @investor.save
       redirect_to investors_path, notice: '创建成功'
     else
       render :new
@@ -25,8 +25,8 @@ class InvestorsController < ApplicationController
   end
 
   def update
-    investor = Investor.find(params[:id])
-    if investor.update(investor_params)
+    @investor = Investor.find(params[:id])
+    if @investor.update(investor_params)
       redirect_to investors_path, notice: '更新成功'
     else
       render :new
