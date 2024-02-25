@@ -1,0 +1,2 @@
+class DeliveryRecord < ApplicationRecord
+end

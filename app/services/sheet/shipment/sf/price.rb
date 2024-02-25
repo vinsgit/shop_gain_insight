@@ -8,7 +8,7 @@ module Sf
       attributes.each do |att|
         r = ::Shipment.find_or_initialize_by(order_ref: att[:order_ref])
         r.total_fee = att[:total_fee]
-        preset_attributes_for_shipments(r, 'sf')
+        preset_attributes_for_shipments(r, 'sf', shop_id)
         r.save
       end
 

@@ -2,7 +2,7 @@
 
 module Sheet
 module Sku
-  class Import < Base
+  class List < Base
     def import!(shop_id)
       return false unless key_fields_not_existed?
 

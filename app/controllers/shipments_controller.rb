@@ -56,6 +56,6 @@ class ShipmentsController < ApplicationController
   end
 
   def do_import(file)
-    import_service(file).perform!(current_shop_id)
+    import_service(file).perform!
   end
 end

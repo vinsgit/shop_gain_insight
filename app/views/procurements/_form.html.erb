@@ -1,0 +1,47 @@
+<% if is_new_or_create? %>
+  <button id='import-toggle' class='btn btn-info'>
+    切换导入方式
+  </button>
+  <br>
+<% end %>
+
+<%= simple_form_for @procurement, html: { class: 'procurement-form' } do |f| %>
+  <% if is_new_or_create? %>
+    <%= f.input :file, label: '通过文件导入', as: :file, input_html: { class: 'form-control' } %>
+  <% end %>
+  <%= f.label :sku_id, class: 'procurement_sku_id' %>
+  <%= f.input :sku_id, label: false, as: :select, input_html: { class: 'select2', style: 'width: 40%;' }, collection: @skus.map{|x| [x.name, x.id]}, selected: @procurement.sku_id %>
+  <%= f.input :qty, label: '采购数量' %>
+  <%= f.input :unit_price, label: '单价(￥)' %>
+  <%= f.input :total_price, label: '总单价(￥)' %>
+  <%= f.input :delivery_fee, label: '运费(￥)' %>
+  <%= f.input :received_qty, label: '实到数量' %>
+  <%= f.input :purchased_at, as: :string, label: '采购时间', input_html: { class: 'flatpickr-date' } %>
+  <%= f.input :note, label: '备注' %>
+
+  <%= f.button :submit, '提交', class: 'btn btn-primary' %>
+<% end %>
+
+<%= render 'shared/back' %>
+
+<script>
+  $(document).ready(function() {
+    function toggleProcurementForm() {
+      let procurementVisible = $('.procurement_sku_id').is(':visible');
+      let fileVisible = $('.procurement_file').is(':visible');
+
+      $('.procurement-form')[0].reset()
+
+      if (procurementVisible) {
+        $('.procurement_delivery_fee, .procurement_sku_id, .procurement_qty, .procurement_unit_price, .procurement_total_price, .procurement_received_qty, .procurement_purchased_at, .procurement_note').hide();
+        $('.procurement_file').show();
+      } else if (fileVisible) {
+        $('.procurement_file').hide();
+        $('.procurement_delivery_fee, .procurement_sku_id, .procurement_qty, .procurement_unit_price, .procurement_total_price, .procurement_received_qty, .procurement_purchased_at, .procurement_note').show();
+      }
+    }
+
+    toggleProcurementForm();
+    $('#import-toggle').click(toggleProcurementForm);
+  });
+</script>

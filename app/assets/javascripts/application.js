@@ -7,6 +7,12 @@
 
 $(document).ready(function(){
   flatpickr('.flatpickr');
+
+  flatpickr(".flatpickr-date", {
+    dateFormat: "Y-m-d"
+  });
+
+  $('.select2').select2();
 });
 
 $(document).on('change', '.current-shop', function(){

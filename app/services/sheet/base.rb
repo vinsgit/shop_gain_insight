@@ -10,13 +10,8 @@ module Sheet
                      :last_row,
                      :attributes
 
-    def initialize(file)
-      @file = file
-      @sheet = Roo::Spreadsheet.open(file, encoding: 'iso-8859-1')
-    end
-
-    def perform!(shop_id)
-      import_service.import!(shop_id)
+    def initialize(sheet)
+      @sheet = sheet
     end
 
     def header
@@ -50,10 +45,6 @@ module Sheet
       indices
     end
 
-    def import_service
-      Sheet::Detector.new(@file).detect_class
-    end
-
     def match_result
       @match_result ||= match_indices_hash(header)
     end
@@ -62,10 +53,15 @@ module Sheet
       match_fields.size == match_result.size
     end
 
-    def preset_attributes_for_shipments(shipment, channel)
+    def preset_attributes_for_shipments(shipment, channel, shop_id)
       shipment.shop_id ||= shop_id
       shipment.channel ||= channel
       shipment.transaction_at ||= Time.current
+    end
+
+    def convert_excel_date(number)
+      return nil if number.blank? || number == '/'
+      Date.new(1899, 12, 30) + number.to_i
     end
   end
 end

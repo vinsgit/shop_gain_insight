@@ -1,0 +1,9 @@
+<hr>
+<%= search_form_for @q, html: { class: 'form-inline col-sm-2 col-md-3' } do |f| %>
+  <div class="form-group mb-2">
+    <%= f.label :sku_name_cont, 'SKU', class: 'mr-2' %>
+    <%= f.search_field :sku_name_cont, class: 'form-control mr-2' %>
+  </div>
+  <%= f.submit '筛选', class: 'btn btn-primary mb-2' %>
+<% end %>
+<hr>

@@ -1,0 +1,41 @@
+<%= link_to '创建/导入 采购单', new_procurement_path, class: 'btn btn-primary' %>
+<br>
+
+<%= render 'filters' %>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>SKU</th>
+      <th>采购数量</th>
+      <th>单价(￥)</th>
+      <th>总单价(￥)</th>
+      <th>运费(￥)</th>
+      <th>实到数量</th>
+      <th>采购时间</th>
+      <th>备注</th>
+      <th>操作</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @procurements.each do |r| %>
+      <tr>
+        <td><%= r.sku.name %></td>
+        <td><%= r.qty %></td>
+        <td><%= r.unit_price %></td>
+        <td><%= r.total_price %></td>
+        <td><%= r.delivery_fee %></td>
+        <td><%= r.received_qty %></td>
+        <td><%= r.purchased_at&.strftime('%Y-%m-%d') %></td>
+        <td><%= r.note %></td>
+        <td>
+          <%= link_to '修改', edit_procurement_path(r), class: 'btn btn-primary btn-sm' %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%== pagy_bootstrap_nav(@pagy) %>
+
+<%= render 'shared/back' %>

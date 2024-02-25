@@ -18,8 +18,7 @@ class SkusController < ApplicationController
 
   def create
     if params.dig(:sku, :file).present?
-      success = sku_import_service.perform!(current_shop_id)
-      if success
+      if do_import!
         redirect_to skus_path, notice: '创建成功'
       else
         redirect_to skus_path, alert: '导入文件列名改变，请检查文件或联系管理员'
@@ -49,7 +48,7 @@ class SkusController < ApplicationController
     params.require(:sku).permit(:name).merge(shop_id: current_shop_id)
   end
 
-  def sku_import_service
-    import_service(params[:sku][:file])
+  def do_import!
+    import_service(params[:sku][:file]).perform!
   end
 end

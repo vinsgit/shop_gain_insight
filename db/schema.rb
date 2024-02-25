@@ -10,10 +10,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_02_19_162240) do
+ActiveRecord::Schema[7.0].define(version: 2024_02_23_164331) do
+  create_table "deliverie_records", force: :cascade do |t|
+    t.date "deliver_at"
+    t.integer "sku_id"
+    t.integer "sent_count", default: 0
+    t.integer "status", default: 0
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "equity_allocation_records", force: :cascade do |t|
     t.integer "investor_id"
-    t.decimal "ratio", precision: 1, scale: 2
+    t.decimal "ratio"
     t.datetime "start_at"
     t.datetime "end_at"
     t.datetime "created_at", null: false
@@ -43,7 +52,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_02_19_162240) do
   create_table "procurement_investors", force: :cascade do |t|
     t.integer "procurement_id"
     t.integer "investor_id"
-    t.decimal "ratio", precision: 1, scale: 2
+    t.decimal "ratio"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -57,6 +66,10 @@ ActiveRecord::Schema[7.0].define(version: 2024_02_19_162240) do
     t.string "note"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.date "purchased_at"
+    t.decimal "delivery_fee", default: "0.0"
+    t.integer "item_link_id"
+    t.integer "shop_id"
   end
 
   create_table "shipments", force: :cascade do |t|

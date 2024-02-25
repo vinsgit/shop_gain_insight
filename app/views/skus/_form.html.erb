@@ -1,12 +1,10 @@
-<% is_new_or_create = action_name.in?(['new', 'create']) %>
-
-<% if is_new_or_create %>
+<% if is_new_or_create? %>
   <button id='import-toggle' class='btn btn-info'>
     切换导入方式
   </button>
 <% end %>
 <%= simple_form_for @sku, html: { class: 'sku-form' } do |f| %>
-  <% if is_new_or_create %>
+  <% if is_new_or_create? %>
     <%= f.input :file, label: '通过文件导入', as: :file, input_html: { class: 'form-control' } %>
   <% end %>
   <%= f.input :shop_id, label: '所属店铺', collection: Shop.all.map{ |c| [c.name, c.id] }, selected: @sku.shop_id %>

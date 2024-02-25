@@ -8,7 +8,7 @@ module Sf
       attributes.each do |att|
         r = ::Shipment.find_or_initialize_by(order_ref: att[:order_ref])
         r.aws_order_ref = att[:aws_order_ref]
-        preset_attributes_for_shipments(r, 'sf')
+        preset_attributes_for_shipments(r, 'sf', shop_id)
         r.save
       end
 
