@@ -21,7 +21,7 @@ module Sheet
     def compose_content(&b)
       (first_row..last_row).map do |i|
         yield(row(i))
-      end.compact_blank!
+      end.compact_blank!.reject! { |hash| hash.values.all?(&:nil?) }
     end
 
     def first_row
@@ -62,6 +62,19 @@ module Sheet
     def convert_excel_date(number)
       return nil if number.blank? || number == '/'
       Date.new(1899, 12, 30) + number.to_i
+    end
+
+    def validate_attributes!(attrs, *keys)
+      invalid_values = []
+
+      attrs.each do |attr|
+        keys.each do |key|
+          value = attr[key]
+          invalid_values << value if value.is_a?(String)
+        end
+      end
+
+      raise ::Sheet::Errors::AttributeError, invalid_values unless invalid_values.empty?
     end
   end
 end

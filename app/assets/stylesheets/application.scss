@@ -23,6 +23,12 @@
   }
 }
 
+.delivery_record-form {
+  .delivery_record_deliver_at, .delivery_record_arrived_count, .delivery_record_sent_count, .delivery_record_sku_id {
+    display: none;
+  }
+}
+
 .shipment-form {
   .shipment_file2 {
     display: none;

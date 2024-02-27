@@ -8,14 +8,14 @@ module Procurement
 
       attrs = attributes(shop_id)
 
-      # validate_attributes!(attrs)
+      # validate_attributes!(attrs, :sku_id, :item_link_id)
 
       attrs.each do |att|
-        r = ::Procurement.find_or_initialize_by(sku_id: att[:sku_id], shop_id: shop_id, purchased_at: att[:purchased_at])
-
         # Remove this after data is correct
         next if att[:sku_id].blank? || att[:item_link_id].blank?
         # Remove this after data is correct
+
+        r = ::Procurement.find_or_initialize_by(sku_id: att[:sku_id], shop_id: shop_id, purchased_at: att[:purchased_at])
 
         r.update(**att)
       end
@@ -46,7 +46,7 @@ module Procurement
         }
       end
 
-      attrs = composed_attributes(array)
+      composed_attributes(array)
     end
 
     def match_fields
@@ -77,6 +77,8 @@ module Procurement
       super
     end
 
+    # TODO
+    # Extra this into base class
     def composed_attributes(array)
       most_recent_item_link_name = nil
       most_recent_purchased_at = nil
@@ -98,10 +100,6 @@ module Procurement
       array
     end
 
-    def validate_attributes!(attrs)
-      sku_names = attrs.select { |x| x[:sku_id].is_a?(String) || x[:item_link_id].is_a?(String) }.map { |x| x[:sku_id] }
-      raise ::Sheet::Errors::AttributeError, sku_names
-    end
   end
 end
 end

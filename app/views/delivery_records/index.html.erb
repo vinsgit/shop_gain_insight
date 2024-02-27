@@ -1,0 +1,37 @@
+<%= link_to '创建/导入 发货单', new_delivery_record_path, class: 'btn btn-primary' %>
+<br>
+
+<%= render 'filters' %>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>发货日期</th>
+      <th>类型</th>
+      <th>商品SKU</th>
+      <th>实到数量</th>
+      <th>箱1</th>
+      <th>剩余数量</th>
+      <th>操作</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @delivery_records.each do |r| %>
+      <tr>
+        <td><%= r.deliver_at&.strftime('%Y-%m-%d') %></td>
+        <td><%= r.sku.name %></td>
+        <td><%= r.status %></td>
+        <td><%= r.arrived_count %></td>
+        <td><%= r.sent_count %></td>
+        <td><%= r.stock_qty %></td>
+        <td>
+          <%= link_to '修改', edit_delivery_record_path(r), class: 'btn btn-primary btn-sm' %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%== pagy_bootstrap_nav(@pagy) %>
+
+<%= render 'shared/back' %>

@@ -10,14 +10,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_02_23_164331) do
-  create_table "deliverie_records", force: :cascade do |t|
+ActiveRecord::Schema[7.0].define(version: 2024_02_26_162846) do
+  create_table "delivery_records", force: :cascade do |t|
     t.date "deliver_at"
     t.integer "sku_id"
     t.integer "sent_count", default: 0
-    t.integer "status", default: 0
+    t.integer "arrived_count", default: 0
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "status"
+    t.integer "shop_id"
+    t.index ["deliver_at"], name: "index_delivery_records_on_deliver_at"
   end
 
   create_table "equity_allocation_records", force: :cascade do |t|
