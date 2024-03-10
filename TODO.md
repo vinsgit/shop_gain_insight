@@ -1,4 +1,9 @@
-1. Purchase order import feature,
-2. Delivery order import feature,
-3. Shipment plan import feature
-4. 发货单没有日期，代表是备货（用于凑重量发货）
+表格修改
+- 采购表
+  - 折后价-合计 去掉，将运费加入到每个商品的单价里，保证单价*数量就为总价（包括每个商品的运费）
+  - 付款人，冒号分割比例和投资人，逗号分割不同投资人。请保证要么同时为英文冒号，要么同时为中文冒号，不然拆分会出问题。
+- FMB发货表
+  - 金额不要合并表格，切不要用=22+33这种公式，直接写结果。公式的导入识别比较麻烦
+- 发货单
+  - 未测试，缺少sku列的值
+- 恢复 validate_attributes! 以及 next if 在import!方法中的使用（确保数据正确）

@@ -28,8 +28,8 @@ module DeliveryRecord
         {
           sku_id: sku_id.blank? ? c[match_result[:sku_name]] : sku_id,
           deliver_at: c[match_result[:deliver_at]],
-          received_qty: c[match_result[:received_qty]],
-          sent_count: c[match_result[:sent_count]],
+          received_qty: c[match_result[:received_qty]].to_i,
+          sent_count: c[match_result[:sent_count]].to_i,
           status: c[match_result[:status]]
         }
       end

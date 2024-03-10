@@ -1,7 +1,6 @@
 class Shipment < ApplicationRecord
   belongs_to :shop
 
-  validates :aws_order_ref, presence: true, uniqueness: { scope: :shop_id }
   validates :order_ref, presence: true, uniqueness: { scope: :shop_id }
 
   enum channel: { sf: 0 }

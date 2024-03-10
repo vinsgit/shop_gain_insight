@@ -1,10 +1,9 @@
 module Sheet
 module Shipment
 module Sf
-  class Detail < Sheet::Base
+  class Detail < Base
     def import!(shop_id)
       return false unless key_fields_not_existed?
-
       attributes.each do |att|
         r = ::Shipment.find_or_initialize_by(order_ref: att[:order_ref])
         r.aws_order_ref = att[:aws_order_ref]
@@ -40,8 +39,8 @@ module Sf
 
     def match_fields
       {
-        order_ref: '平台订单号',
-        aws_order_ref: '顺丰运单号'
+        order_ref: '顺丰运单号',
+        aws_order_ref: '平台订单号'
       }
     end
   end

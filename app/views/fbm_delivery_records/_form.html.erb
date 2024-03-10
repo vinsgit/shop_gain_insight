@@ -1,0 +1,46 @@
+<% if is_new_or_create? %>
+  <button id='import-toggle' class='btn btn-info'>
+    切换导入方式
+  </button>
+  <br>
+<% end %>
+
+<%= simple_form_for @fbm_delivery_record, html: { class: 'fbm_delivery_record-form' } do |f| %>
+  <% if is_new_or_create? %>
+    <%= f.input :file, label: '通过文件导入', as: :file, input_html: { class: 'form-control' } %>
+  <% end %>
+  <%= f.label :sku_id, class: 'fbm_delivery_record_sku_id' %>
+  <%= f.input :sku_id, label: false, as: :select, input_html: { class: 'select2', style: 'width: 40%;' }, collection: @skus.map{|x| [x.name, x.id]}, selected: @fbm_delivery_record.sku_id %>
+  <%= f.input :purchased_at, as: :string, label: '采购日期', input_html: { class: 'flatpickr' } %>
+  <%= f.input :amt, label: '采购金额' %>
+  <%= f.input :purchase_note, label: '采购情况' %>
+  <%= f.input :delivery_method, label: '发货方式' %>
+  <%= f.input :delivery_status, label: '发货状态' %>
+  <%= f.input :order_note, label: '做单？' %>
+  <%= f.input :aws_order_ref, label: 'AWS订单号' %>
+  <%= f.input :note, label: '备注' %>
+
+  <%= f.button :submit, '提交', class: 'btn btn-primary' %>
+<% end %>
+
+<%= render 'shared/back' %>
+
+<script>
+  $(document).ready(function() {
+    function toggleDeliveryRecordForm() {
+      let fileVisible = $('.fbm_delivery_record_file').is(':visible');
+
+      $('.fbm_delivery_record-form')[0].reset()
+
+      if (fileVisible) {
+        $('.fbm_delivery_record_sku_id,.fbm_delivery_record_purchased_at,.fbm_delivery_record_amt,.fbm_delivery_record_purchase_note,.fbm_delivery_record_delivery_method,.fbm_delivery_record_delivery_status,.fbm_delivery_record_order_note,.fbm_delivery_record_aws_order_ref,.fbm_delivery_record_note').show();
+        $('.fbm_delivery_record_file').hide();
+      } else {
+        $('.fbm_delivery_record_sku_id,.fbm_delivery_record_purchased_at,.fbm_delivery_record_amt,.fbm_delivery_record_purchase_note,.fbm_delivery_record_delivery_method,.fbm_delivery_record_delivery_status,.fbm_delivery_record_order_note,.fbm_delivery_record_aws_order_ref,.fbm_delivery_record_note').hide();
+        $('.fbm_delivery_record_file').show();
+      }
+    }
+
+    $('#import-toggle').click(toggleDeliveryRecordForm);
+  });
+</script>

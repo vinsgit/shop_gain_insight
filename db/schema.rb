@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_02_26_162846) do
+ActiveRecord::Schema[7.0].define(version: 2024_02_27_134125) do
   create_table "delivery_records", force: :cascade do |t|
     t.date "deliver_at"
     t.integer "sku_id"
@@ -28,6 +28,21 @@ ActiveRecord::Schema[7.0].define(version: 2024_02_26_162846) do
     t.decimal "ratio"
     t.datetime "start_at"
     t.datetime "end_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "fbm_delivery_records", force: :cascade do |t|
+    t.integer "shop_id"
+    t.integer "sku_id"
+    t.date "purchased_at"
+    t.decimal "amt"
+    t.string "note"
+    t.string "purchase_note"
+    t.string "delivery_method"
+    t.string "delivery_status"
+    t.string "order_note"
+    t.string "aws_order_ref"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

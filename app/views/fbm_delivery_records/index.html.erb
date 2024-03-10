@@ -1,0 +1,46 @@
+<%= link_to '创建/导入 FBM发货单', new_fbm_delivery_record_path, class: 'btn btn-primary' %>
+<br>
+
+<%= render 'filters' %>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>AWS订单号</th>
+      <th>SKU</th>
+      <th>采购情况</th>
+      <th>发送方式</th>
+      <th>发货状态</th>
+      <th>做单情况</th>
+      <th>采购日期</th>
+      <th>采购金额</th>
+      <th>链接</th>
+      <th>备注</th>
+      <th>操作</th>
+    </tr>
+  </thead>
+  <tbody>
+
+    <% @fbm_delivery_records.each do |r| %>
+      <tr>
+        <td><%= r.aws_order_ref %></td>
+        <td><%= r.sku&.name %></td>
+        <td><%= r.purchase_note %></td>
+        <td><%= r.delivery_method %></td>
+        <td><%= r.delivery_status %></td>
+        <td><%= r.order_note %></td>
+        <td><%= r.purchased_at&.strftime('%Y-%m-%d') %></td>
+        <td><%= r.amt %></td>
+        <td>|待完成|</td>
+        <td><%= r.note %></td>
+        <td>
+          <%= link_to '修改', edit_fbm_delivery_record_path(r), class: 'btn btn-primary btn-sm' %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%== pagy_bootstrap_nav(@pagy) %>
+
+<%= render 'shared/back' %>

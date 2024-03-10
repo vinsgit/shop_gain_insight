@@ -25,11 +25,11 @@
       $('.sku-form')[0].reset()
 
       if (skuVisible) {
-        $('.sku_name, .sku_note, .sku_price').hide();
+        $('.sku_name, .sku_note, .sku_price, .sku_shop_id').hide();
         $('.sku_file').show();
       } else if (fileVisible) {
         $('.sku_file').hide();
-        $('.sku_name, .sku_note, .sku_price').show();
+        $('.sku_name, .sku_note, .sku_price, .sku_shop_id').show();
       }
     });
   });

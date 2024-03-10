@@ -13,7 +13,7 @@ Rails.application.routes.draw do
       delete :remove
     end
   end
-  resources :skus, :shipments, :procurements, :item_links, :delivery_records, only: [:new, :edit, :index, :create, :update] do
+  resources :skus, :shipments, :procurements, :item_links, :delivery_records, :fbm_delivery_records, only: [:new, :edit, :index, :create, :update] do
     collection do
       delete :remove
     end

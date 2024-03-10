@@ -29,6 +29,12 @@
   }
 }
 
+.fbm_delivery_record-form {
+  .fbm_delivery_record_sku_id,.fbm_delivery_record_purchased_at,.fbm_delivery_record_amt,.fbm_delivery_record_purchase_note,.fbm_delivery_record_delivery_method,.fbm_delivery_record_delivery_status,.fbm_delivery_record_order_note,.fbm_delivery_record_aws_order_ref,.fbm_delivery_record_note {
+    display: none;
+  }
+}
+
 .shipment-form {
   .shipment_file2 {
     display: none;

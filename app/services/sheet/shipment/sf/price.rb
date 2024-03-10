@@ -1,7 +1,7 @@
 module Sheet
 module Shipment
 module Sf
-  class Price < Sheet::Base
+  class Price < Base
     def import!(shop_id)
       return false unless key_fields_not_existed?
 

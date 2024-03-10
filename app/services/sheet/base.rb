@@ -21,7 +21,7 @@ module Sheet
     def compose_content(&b)
       (first_row..last_row).map do |i|
         yield(row(i))
-      end.compact_blank!.reject! { |hash| hash.values.all?(&:nil?) }
+      end.compact_blank!.delete_if { |hash| hash.values.all?(&:blank?) }
     end
 
     def first_row
@@ -51,12 +51,6 @@ module Sheet
 
     def key_fields_not_existed?
       match_fields.size == match_result.size
-    end
-
-    def preset_attributes_for_shipments(shipment, channel, shop_id)
-      shipment.shop_id ||= shop_id
-      shipment.channel ||= channel
-      shipment.transaction_at ||= Time.current
     end
 
     def convert_excel_date(number)

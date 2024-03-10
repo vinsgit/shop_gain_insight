@@ -7,7 +7,7 @@ module Sheet
     SKU_FIELDS = %w[sku fnsku asin product-name condition]
     PROCUREMENT_FIELDS = %w[采购时间 链接SKU 商品SKU 采购数量]
     DELIVERY_RECORDS_FIELDS = %w[发货日期 商品名称 商品SKU]
-
+    FBM_DELIVERY_RECORDS_FIELDS = %w[订单号 商品SKU 采购情况 发送方式]
 
     def initialize(sheet)
       @sheet = sheet
@@ -19,6 +19,7 @@ module Sheet
       return Sheet::Sku::List.new(@sheet) if is_sku_sheet?
       return Sheet::Procurement::List.new(@sheet) if is_procurement_sheet?
       return Sheet::DeliveryRecord::List.new(@sheet) if is_delivery_record_sheet?
+      return Sheet::FbmDeliveryRecord::List.new(@sheet) if is_fbm_delivery_record_sheet?
     end
 
     private
@@ -43,6 +44,10 @@ module Sheet
 
     def is_delivery_record_sheet?
       DELIVERY_RECORDS_FIELDS.all? {|f| f.in?(header) }
+    end
+
+    def is_fbm_delivery_record_sheet?
+      FBM_DELIVERY_RECORDS_FIELDS.all? {|f| f.in?(header) }
     end
 
     def header
