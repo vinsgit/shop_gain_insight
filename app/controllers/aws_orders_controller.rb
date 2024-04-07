@@ -5,7 +5,7 @@ class AwsOrdersController < ApplicationController
 
   def index
     @q = AwsOrder.includes(:sku).ransack(params[:q])
-    @pagy, @aws_orders = pagy(@q.result, items: 25)
+    @pagy, @aws_orders = pagy(@q.result(distinct: true), items: 25)
   end
 
   def new

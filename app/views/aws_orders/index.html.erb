@@ -1,12 +1,14 @@
+<%= render 'filters' %>
+
 <table class="table">
   <thead>
     <tr>
       <th>SKU</th>
       <th>日期</th>
-      <th>亚马逊订单</th>
+      <th>AWS订单</th>
       <th>商家订单</th>
       <th>金额</th>
-      <th>促销ID</th>
+      <th>金额类型</th>
       <th>金额说明</th>
       <th>额外补充金额</th>
       <th>人工补充金额</th>
@@ -23,7 +25,7 @@
         <td><%= aws_order.order_ref %></td>
         <td><%= aws_order.merchant_order_ref %></td>
         <td><%= aws_order.amt %></td>
-        <td><%= aws_order.promotion_ref %></td>
+        <td><%= aws_order.amt_type %></td>
         <td><%= aws_order.desc %></td>
         <td><%= aws_order.amend_amt %></td>
         <td><%= aws_order.manual_amend_amt %></td>

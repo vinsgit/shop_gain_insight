@@ -9,6 +9,10 @@ class AwsOrder < ApplicationRecord
   end
 
   def self.ransackable_attributes(auth_object = nil)
-    %w[name]
+    %w[merchant_order_ref order_ref sku_name_cont]
+  end
+
+  def self.ransackable_associations(auth_object = nil)
+    %w[sku]
   end
 end
