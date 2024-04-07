@@ -1,0 +1,20 @@
+<%= simple_form_for @aws_order, html: { class: 'shipment-form' } do |f| %>
+  <% unless is_new_or_create? %>
+    <%= f.label :sku_id %>
+    <%= f.input :sku_id, label: false, as: :select, input_html: { class: 'select2', style: 'width: 40%;' }, include_blank: true, collection: @skus.map{|x| [x.name, x.id]}, selected: @aws_order.sku_id %>
+    <%= f.input :order_ref, label: 'aws订单号' %>
+    <%= f.input :merchant_order_ref, label: '商家订单号' %>
+    <%= f.input :amt, label: '金额' %>
+    <%= f.input :promotion_ref, label: '促销ID' %>
+    <%= f.input :desc, label: '金额说明' %>
+    <%= f.input :manual_amend_amt, label: '人工补充金额' %>
+    <%= f.input :posted_at, as: :string, label: '日期', input_html: { class: 'flatpickr' } %>
+    <%= f.input :note, label: '备注' %>
+  <% else %>
+    <%= f.input :file, label: '通过文件导入', as: :file, input_html: { class: 'form-control' } %>
+  <% end %>
+
+  <%= f.button :submit, '提交', class: 'btn btn-primary' %>
+<% end %>
+
+<%= render 'shared/back' %>

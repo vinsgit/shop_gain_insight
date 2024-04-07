@@ -29,14 +29,14 @@ module FbmDeliveryRecord
       split_ele_arr = []
 
       result = compose_content do |c|
-        build_attributes(c, shop_id, c[match_result[:sku_name]])
+        build_attributes(c, c[match_result[:sku_name]])
       end
 
       result = split_sku_ids(result)
       assign_sku_id_to_result(result, shop_id)
     end
 
-    def build_attributes(c, shop_id, sku_name)
+    def build_attributes(c, sku_name)
       {
         sku_id: sku_name,
         purchased_at: convert_excel_date(c[match_result[:purchased_at]]),

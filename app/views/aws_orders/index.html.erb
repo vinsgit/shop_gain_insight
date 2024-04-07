@@ -1,0 +1,42 @@
+<table class="table">
+  <thead>
+    <tr>
+      <th>SKU</th>
+      <th>日期</th>
+      <th>亚马逊订单</th>
+      <th>商家订单</th>
+      <th>金额</th>
+      <th>促销ID</th>
+      <th>金额说明</th>
+      <th>额外补充金额</th>
+      <th>人工补充金额</th>
+      <th>核算总金额</th>
+      <th>备注</th>
+      <th>操作</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @aws_orders.each do |aws_order| %>
+      <tr>
+        <td><%= aws_order.sku&.name %></td>
+        <td><%= aws_order.posted_at&.strftime('%Y-%m-%d') %></td>
+        <td><%= aws_order.order_ref %></td>
+        <td><%= aws_order.merchant_order_ref %></td>
+        <td><%= aws_order.amt %></td>
+        <td><%= aws_order.promotion_ref %></td>
+        <td><%= aws_order.desc %></td>
+        <td><%= aws_order.amend_amt %></td>
+        <td><%= aws_order.manual_amend_amt %></td>
+        <td><%= aws_order.total_amt %></td>
+        <td><%= aws_order.note %></td>
+        <td>
+          <%= link_to '修改', edit_aws_order_path(aws_order), class: 'btn btn-primary btn-sm' %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%== pagy_bootstrap_nav(@pagy) %>
+
+<%= render 'shared/back' %>

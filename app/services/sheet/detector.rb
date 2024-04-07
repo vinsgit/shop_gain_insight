@@ -8,6 +8,7 @@ module Sheet
     PROCUREMENT_FIELDS = %w[采购时间 链接SKU 商品SKU 采购数量]
     DELIVERY_RECORDS_FIELDS = %w[发货日期 商品名称 商品SKU]
     FBM_DELIVERY_RECORDS_FIELDS = %w[订单号 商品SKU 采购情况 发送方式]
+    AWS_ORDER_FIELDS = %w[settlement-id	settlement-start-date amount]
 
     def initialize(sheet)
       @sheet = sheet
@@ -20,6 +21,7 @@ module Sheet
       return Sheet::Procurement::List.new(@sheet) if is_procurement_sheet?
       return Sheet::DeliveryRecord::List.new(@sheet) if is_delivery_record_sheet?
       return Sheet::FbmDeliveryRecord::List.new(@sheet) if is_fbm_delivery_record_sheet?
+      return Sheet::AwsOrder::List.new(@sheet) if is_aws_order_sheet?
     end
 
     private
@@ -48,6 +50,10 @@ module Sheet
 
     def is_fbm_delivery_record_sheet?
       FBM_DELIVERY_RECORDS_FIELDS.all? {|f| f.in?(header) }
+    end
+
+    def is_aws_order_sheet?
+      AWS_ORDER_FIELDS.all? {|f| f.in?(header) }
     end
 
     def header

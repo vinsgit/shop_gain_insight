@@ -10,7 +10,27 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_02_27_134125) do
+ActiveRecord::Schema[7.0].define(version: 2024_04_07_034319) do
+  create_table "aws_orders", force: :cascade do |t|
+    t.string "order_ref"
+    t.string "merchant_order_ref"
+    t.string "desc"
+    t.decimal "amt", default: "0.0"
+    t.integer "sku_id"
+    t.string "promotion_ref"
+    t.decimal "amend_amt", default: "0.0"
+    t.decimal "manual_amend_amt", default: "0.0"
+    t.string "note"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "shop_id"
+    t.date "posted_at"
+    t.string "txn_type"
+    t.string "amt_type"
+    t.string "settle_id"
+    t.index ["posted_at"], name: "index_aws_orders_on_posted_at"
+  end
+
   create_table "delivery_records", force: :cascade do |t|
     t.date "deliver_at"
     t.integer "sku_id"

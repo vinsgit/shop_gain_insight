@@ -39,7 +39,12 @@ module Sheet
     def match_indices_hash(arr)
       indices = {}
       match_fields.each do |key, value|
-        index = arr.index(value)
+        index =
+          if value.is_a?(Array)
+            value.map {|v| arr.index(v)}.compact.first
+          else
+            arr.index(value)
+          end
         indices[key] = index if index
       end
       indices
