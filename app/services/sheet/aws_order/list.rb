@@ -3,6 +3,8 @@
 module Sheet
 module AwsOrder
   class List < Base
+    FIELDS_TO_SKIP = ['Cost of Advertising', 'Current Reserve Amount', 'Previous Reserve Amount Balance']
+
     def import!(shop_id)
       return false unless key_fields_not_existed?
 
@@ -37,7 +39,7 @@ module AwsOrder
           # 扣除coupon花费，通过名字拆分，对应到sku上
         end
 
-        next if c[match_result[:amount_type]].in?(['Cost of Advertising', 'Current Reserve Amount', 'Previous Reserve Amount Balance', 'CouponRedemptionFee'])
+        next if c[match_result[:amount_type]].in?(FIELDS_TO_SKIP)
 
         sku_name = c[match_result[:sku_name]]
 
