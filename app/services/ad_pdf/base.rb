@@ -5,7 +5,7 @@ module AdPdf
     def initialize(file)
       @file = file
     end
-  
+
     def update!
       import_service.perform!
     end
