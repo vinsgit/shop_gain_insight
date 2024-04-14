@@ -18,4 +18,6 @@ Rails.application.routes.draw do
       delete :remove
     end
   end
+
+  resources :ads_costs, only: [:new, :create]
 end
