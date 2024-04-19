@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Sheet
-  class FileSheetDetector
+  class Processor
     def initialize(file, shop_id)
       @shop_id = shop_id
       @sheet = Roo::Spreadsheet.open(file, encoding: 'iso-8859-1')

@@ -2,6 +2,7 @@
 
 class DeliveryRecordsController < ApplicationController
   before_action :authenticate_current_shop!
+  before_action :set_skus, only: [:new, :edit]
 
   def index
     @q = DeliveryRecord.includes(:sku).ransack(params[:q])
@@ -10,34 +11,17 @@ class DeliveryRecordsController < ApplicationController
 
   def new
     @delivery_record = DeliveryRecord.new
-    @skus = Sku.all
   end
 
   def edit
-    @skus = Sku.all
     @delivery_record = DeliveryRecord.find(params[:id])
   end
 
   def create
     if params.dig(:delivery_record, :file).present?
-      begin
-        if perform_import!
-          redirect_to delivery_records_path, notice: '创建成功'
-        else
-          redirect_to delivery_records_path, alert: '导入文件列名改变，请检查文件或联系管理员'
-        end
-      rescue Sheet::Errors::AttributeError => e
-        redirect_to delivery_records_path, alert: "以下SKU（或对应链接）不存在，请检查：#{JSON.parse(e.message).join(' || ')}"
-      end
+      handle_import
     else
-      @delivery_record = DeliveryRecord.new(delivery_record_params)
-      @delivery_record.shop_id = current_shop_id
-      if @delivery_record.save
-        redirect_to delivery_records_path, notice: '创建成功'
-      else
-        @skus = Sku.all
-        render :new
-      end
+      create_deliver_record
     end
   end
 
@@ -61,4 +45,30 @@ class DeliveryRecordsController < ApplicationController
     import_service(params[:delivery_record][:file]).perform!
   end
 
+  def set_skus
+    @skus = Sku.all
+  end
+
+  def handle_import
+    begin
+      if perform_import!
+        redirect_to delivery_records_path, notice: '创建成功'
+      else
+        redirect_to delivery_records_path, alert: '导入文件列名改变，请检查文件或联系管理员'
+      end
+    rescue Sheet::Errors::AttributeError => e
+      redirect_to delivery_records_path, alert: "以下SKU（或对应链接）不存在，请检查：#{JSON.parse(e.message).join(' || ')}"
+    end
+  end
+
+  def create_deliver_record
+    @delivery_record = DeliveryRecord.new(delivery_record_params)
+    @delivery_record.shop_id = current_shop_id
+    if @delivery_record.save
+      redirect_to delivery_records_path, notice: '创建成功'
+    else
+      @skus = Sku.all
+      render :new
+    end
+  end
 end

@@ -7,8 +7,13 @@ class AdsCostsController < ApplicationController
 
   def create
     params[:files].compact_blank.each do |file|
-      ::AdPdf::Base.new(file.path).update!
+      ad_pdf_service(file).update!
     end
   end
 
+  private
+
+  def ad_pdf_service(file)
+    ::AdPdf::Base.new(file.path)
+  end
 end

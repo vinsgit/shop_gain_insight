@@ -10,6 +10,6 @@ class ApplicationController < ActionController::Base
   end
 
   def import_service(file)
-    Sheet::FileSheetDetector.new(file, current_shop_id)
+    Sheet::Processor.new(file, current_shop_id)
   end
 end

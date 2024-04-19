@@ -2,3 +2,4 @@
   - 未测试，缺少sku列的值
 - 恢复 validate_attributes! 以及 next if 在import!方法中的使用（确保数据正确）
 - 扣除coupon花费，通过名字拆分，对应到sku上
+- set shop id to base class

@@ -15,7 +15,8 @@ module Procurement
         next if att[:sku_id].blank? || att[:item_link_id].blank?
         # Remove this after data is correct
 
-        procurement_investors = att.delete(:investors)
+        str = att.delete(:investors)
+        procurement_investors = extract_investors(str)
 
         r = ::Procurement.find_or_initialize_by(sku_id: att[:sku_id], shop_id: shop_id, purchased_at: att[:purchased_at])
         r.procurement_investors.new(procurement_investors)
@@ -46,7 +47,7 @@ module Procurement
           unit_price: c[match_result[:unit_price]].to_d,
           total_price: c[match_result[:total_price]].to_d,
           note: c[match_result[:note]],
-          investors: extract_investors(c[match_result[:investors]])
+          investors: c[match_result[:investors]]
         }
       end
 
@@ -85,14 +86,22 @@ module Procurement
       investors_arr = str.split('，')
       investors_arr.map do |investor|
         investor_name, ratio = investor.split('：')
-        { investor_id: ::Investor.find_by(name: investor_name).id, ratio: ratio.to_f / 100 }
-      end
+        investor = ::Investor.find_by(name: investor_name)
+
+        if investor.blank?
+          {}
+        else
+          { investor_id: investor.id, ratio: ratio.to_f / 100 }
+        end
+
+      end.compact_blank!
     end
     # TODO
     # Extra this into base class
     def composed_attributes(array)
       most_recent_item_link_name = nil
       most_recent_purchased_at = nil
+      most_recent_investor = nil
 
       array.each do |item|
         if item[:item_link_name].nil?
@@ -105,6 +114,12 @@ module Procurement
           item[:purchased_at] = most_recent_purchased_at if most_recent_purchased_at
         else
           most_recent_purchased_at = item[:purchased_at]
+        end
+
+        if item[:investors].nil?
+          item[:investors] = most_recent_investor if most_recent_investor
+        else
+          most_recent_investor = item[:investors]
         end
       end
 

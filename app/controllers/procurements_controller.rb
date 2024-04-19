@@ -57,10 +57,7 @@ class ProcurementsController < ApplicationController
   end
 
   def perform_import!
-    do_import(params[:procurement][:file])
+    import_service(params[:procurement][:file]).perform!
   end
 
-  def do_import(file)
-    import_service(file).perform!
-  end
 end

@@ -2,6 +2,7 @@
 
 class AwsOrdersController < ApplicationController
   before_action :authenticate_current_shop!
+  before_action :set_skus, only: [:new, :edit]
 
   def index
     @q = AwsOrder.includes(:sku).ransack(params[:q])
@@ -9,7 +10,6 @@ class AwsOrdersController < ApplicationController
   end
 
   def new
-    @skus = Sku.all
     @aws_order = AwsOrder.new
   end
 
@@ -26,7 +26,6 @@ class AwsOrdersController < ApplicationController
   end
 
   def edit
-    @skus = Sku.all
     @aws_order = AwsOrder.find(params[:id])
   end
 
@@ -36,6 +35,10 @@ class AwsOrdersController < ApplicationController
   end
 
   private
+
+  def set_skus
+    @skus = Sku.all
+  end
 
   def permitted_params
     params.require(:aws_order).permit(:sku_id, :order_ref, :merchant_order_ref, :amt, :promotion_ref, :desc, :amend_amt, :note, :posted_at)

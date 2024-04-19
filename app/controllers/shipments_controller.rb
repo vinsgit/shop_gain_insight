@@ -18,18 +18,9 @@ class ShipmentsController < ApplicationController
 
   def create
     if params.dig(:shipment, :file).present? || params.dig(:shipment, :file2).present?
-      if perform_import!
-        redirect_to shipments_path, notice: '创建成功'
-      else
-        redirect_to shipments_path, alert: '导入文件列名改变，请检查文件或联系管理员'
-      end
+      handle_import
     else
-      shipment = Shipment.new(shipment_params)
-      if shipment.save
-        redirect_to shipments_path, notice: '创建成功'
-      else
-        render :new
-      end
+      create_shipment_record
     end
   end
 
@@ -49,13 +40,30 @@ class ShipmentsController < ApplicationController
   end
 
   def perform_import!
-    result1 = do_import(params[:shipment][:file])
-    result2 = params[:shipment][:file].present? ? do_import(params[:shipment][:file2]) : true
+    result1 = import_service(params[:shipment][:file]).perform! if params[:shipment][:file]
+    result2 = import_service(params[:shipment][:file2]).perform! if params[:shipment][:file2]
 
     result1 && result2
   end
 
-  def do_import(file)
-    import_service(file).perform!
+  def handle_import
+    if perform_import!
+      redirect_to shipments_path, notice: '创建成功'
+    else
+      redirect_to shipments_path, alert: '导入文件列名改变，请检查文件或联系管理员'
+    end
+  end
+
+  def create_shipment_record
+    shipment = Shipment.new(shipment_params)
+    if shipment.save
+      redirect_to shipments_path, notice: '创建成功'
+    else
+      render :new
+    end
+  end
+
+  def find_shipment
+    Shipment.find(params[:id])
   end
 end
