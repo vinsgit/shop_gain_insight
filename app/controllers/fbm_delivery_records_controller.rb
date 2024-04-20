@@ -1,11 +1,11 @@
 # frozen_string_literal: true
 
 class FbmDeliveryRecordsController < ApplicationController
-  before_action :authenticate_current_shop!
+  before_action :redirect_unless_current_shop!
   before_action :set_skus, only: [:new, :edit]
 
   def index
-    @q = FbmDeliveryRecord.includes(:sku).ransack(params[:q])
+    @q = @current_shop.fbm_delivery_records.includes(:sku).ransack(params[:q])
     @pagy, @fbm_delivery_records = pagy(@q.result, items: 25)
   end
 
@@ -14,7 +14,7 @@ class FbmDeliveryRecordsController < ApplicationController
   end
 
   def edit
-    @fbm_delivery_record = FbmDeliveryRecord.find(params[:id])
+    @fbm_delivery_record = @current_shop.fbm_delivery_records.find(params[:id])
   end
 
   def create
@@ -26,7 +26,7 @@ class FbmDeliveryRecordsController < ApplicationController
   end
 
   def update
-    @fbm_delivery_record = FbmDeliveryRecord.find(params[:id])
+    @fbm_delivery_record = @current_shop.fbm_delivery_records.find(params[:id])
     if @fbm_delivery_record.update(fbm_delivery_record_params)
       redirect_to fbm_delivery_records_path, notice: '更新成功'
     else
@@ -45,10 +45,6 @@ class FbmDeliveryRecordsController < ApplicationController
     import_service(params[:fbm_delivery_record][:file]).perform!
   end
 
-  def set_skus
-    @skus = Sku.all
-  end
-
   def handle_import
     begin
       if perform_import!
@@ -63,7 +59,7 @@ class FbmDeliveryRecordsController < ApplicationController
 
   def create_deliver_record
     @fbm_delivery_record = FbmDeliveryRecord.new(fbm_delivery_record_params)
-    @fbm_delivery_record.shop_id = current_shop_id
+    @fbm_delivery_record.shop_id = current_shop.id
     if @fbm_delivery_record.save
       redirect_to fbm_delivery_records_path, notice: '创建成功'
     else

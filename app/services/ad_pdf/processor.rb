@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module AdPdf
-  class Base
+  class Processor
     def initialize(file)
       @file = file
     end
@@ -13,7 +13,7 @@ module AdPdf
     private
 
     def import_service
-      @import_service ||= Import.new(reader_service.sku_cost_arr)
+      @import_service ||= Importer.new(reader_service.sku_cost_arr)
     end
 
     def reader_service

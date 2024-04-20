@@ -1,51 +1,37 @@
 # frozen_string_literal: true
 
 class ProcurementsController < ApplicationController
-  before_action :authenticate_current_shop!
+  before_action :redirect_unless_current_shop!
+  before_action :set_skus, only: %i[new edit]
 
   def index
-    @q = Procurement.includes(:sku).ransack(params[:q])
+    @q = current_shop.procurements.includes(:sku).ransack(params[:q])
     @pagy, @procurements = pagy(@q.result, items: 25)
   end
 
   def new
     @procurement = Procurement.new(purchased_at: Date.current.strftime("%Y-%m-%d"))
-    @skus = Sku.all
   end
 
   def edit
-    @skus = Sku.all
-    @procurement = Procurement.find(params[:id])
+    @procurement = current_shop.procurements.find(params[:id])
   end
 
   def create
     if params.dig(:procurement, :file).present? || params.dig(:procurement, :file2).present?
-      begin
-        if perform_import!
-          redirect_to procurements_path, notice: '创建成功'
-        else
-          redirect_to procurements_path, alert: '导入文件列名改变，请检查文件或联系管理员'
-        end
-      rescue Sheet::Errors::AttributeError => e
-        redirect_to procurements_path, alert: "以下SKU（或对应链接）不存在，请检查：#{JSON.parse(e.message).join(' || ')}"
-      end
+      handle_import
     else
-      @procurement = Procurement.new(procurement_params)
-      if @procurement.save
-        redirect_to procurements_path, notice: '创建成功'
-      else
-        @skus = Sku.all
-        render :new
-      end
+      create_procurement_record
     end
   end
 
   def update
-    @procurement = Procurement.find(params[:id])
+    @procurement = current_shop.procurements.find(params[:id])
     if @procurement.update(procurement_params)
       redirect_to procurements_path, notice: '更新成功'
     else
-      @skus = Sku.all
+      set_skus
+
       render :new
     end
   end
@@ -58,6 +44,29 @@ class ProcurementsController < ApplicationController
 
   def perform_import!
     import_service(params[:procurement][:file]).perform!
+  end
+
+  def handle_import
+    begin
+      if perform_import!
+        redirect_to procurements_path, notice: '创建成功'
+      else
+        redirect_to procurements_path, alert: '导入文件列名改变，请检查文件或联系管理员'
+      end
+    rescue Sheet::Errors::AttributeError => e
+      redirect_to procurements_path, alert: "以下SKU（或对应链接）不存在，请检查：#{JSON.parse(e.message).join(' || ')}"
+    end
+  end
+
+  def create_procurement_record
+    @procurement = Procurement.new(procurement_params)
+    if @procurement.save
+      redirect_to procurements_path, notice: '创建成功'
+    else
+      set_skus
+
+      render :new
+    end
   end
 
 end

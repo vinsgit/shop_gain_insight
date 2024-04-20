@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class AdsCostsController < ApplicationController
-  before_action :authenticate_current_shop!
+  before_action :redirect_unless_current_shop!
 
   def new;end
 
@@ -14,6 +14,6 @@ class AdsCostsController < ApplicationController
   private
 
   def ad_pdf_service(file)
-    ::AdPdf::Base.new(file.path)
+    ::AdPdf::Processor.new(file.path)
   end
 end

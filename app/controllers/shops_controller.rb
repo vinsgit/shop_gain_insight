@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class ShopsController < ApplicationController
-  before_action :authenticate_current_shop!
+  before_action :redirect_unless_current_shop!
 
   def index
     @shops = Shop.all

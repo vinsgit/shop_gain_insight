@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
 class ShipmentsController < ApplicationController
-  before_action :authenticate_current_shop!
+  before_action :redirect_unless_current_shop!
 
   def index
-    @q = Shipment.ransack(params[:q])
+    @q = current_shop.shipments.ransack(params[:q])
     @pagy, @shipments = pagy(@q.result, items: 25)
   end
 
@@ -13,7 +13,7 @@ class ShipmentsController < ApplicationController
   end
 
   def edit
-    @shipment = Shipment.find(params[:id])
+    @shipment = current_shop.shipments.find(params[:id])
   end
 
   def create
@@ -25,7 +25,7 @@ class ShipmentsController < ApplicationController
   end
 
   def update
-    shipment = Shipment.find(params[:id])
+    shipment = current_shop.shipments.find(params[:id])
     if shipment.update(shipment_params)
       redirect_to shipments_path, notice: '更新成功'
     else
@@ -55,7 +55,7 @@ class ShipmentsController < ApplicationController
   end
 
   def create_shipment_record
-    shipment = Shipment.new(shipment_params)
+    shipment = current_shop.shipments.new(shipment_params)
     if shipment.save
       redirect_to shipments_path, notice: '创建成功'
     else

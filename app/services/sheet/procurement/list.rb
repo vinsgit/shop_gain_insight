@@ -16,15 +16,16 @@ module Procurement
         # Remove this after data is correct
 
         str = att.delete(:investors)
-        procurement_investors = extract_investors(str)
+        procurement_investors = extract_investors(str).map{|attrs| ProcurementInvestor.new(**attrs) }
 
         r = ::Procurement.find_or_initialize_by(sku_id: att[:sku_id], shop_id: shop_id, purchased_at: att[:purchased_at])
-        r.procurement_investors.new(procurement_investors)
+
+        r.procurement_investors = procurement_investors
 
         r.update(**att)
       end
 
-      return true
+      true
     end
 
     private

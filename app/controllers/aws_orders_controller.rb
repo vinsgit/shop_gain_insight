@@ -1,11 +1,11 @@
 # frozen_string_literal: true
 
 class AwsOrdersController < ApplicationController
-  before_action :authenticate_current_shop!
+  before_action :redirect_unless_current_shop!
   before_action :set_skus, only: [:new, :edit]
 
   def index
-    @q = AwsOrder.includes(:sku).ransack(params[:q])
+    @q = current_shop.aws_orders.includes(:sku).ransack(params[:q])
     @pagy, @aws_orders = pagy(@q.result(distinct: true), items: 25)
   end
 
@@ -26,19 +26,15 @@ class AwsOrdersController < ApplicationController
   end
 
   def edit
-    @aws_order = AwsOrder.find(params[:id])
+    @aws_order = current_shop.aws_orders.find(params[:id])
   end
 
   def update
-    @aws_order = AwsOrder.find(params[:id])
+    @aws_order = current_shop.aws_orders.find(params[:id])
     @aws_order.update(permitted_params)
   end
 
   private
-
-  def set_skus
-    @skus = Sku.all
-  end
 
   def permitted_params
     params.require(:aws_order).permit(:sku_id, :order_ref, :merchant_order_ref, :amt, :promotion_ref, :desc, :amend_amt, :note, :posted_at)

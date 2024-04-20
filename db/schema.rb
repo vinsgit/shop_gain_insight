@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_04_14_102925) do
+ActiveRecord::Schema[7.0].define(version: 2024_04_20_051557) do
   create_table "aws_orders", force: :cascade do |t|
     t.string "order_ref"
     t.string "merchant_order_ref"
@@ -71,6 +71,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_04_14_102925) do
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "shop_id"
   end
 
   create_table "item_links", force: :cascade do |t|

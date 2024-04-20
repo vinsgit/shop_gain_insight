@@ -1,10 +1,11 @@
 # frozen_string_literal: true
 
 class SkusController < ApplicationController
-  before_action :authenticate_current_shop!
+  before_action :redirect_unless_current_shop!
+  before_action :set_skus, only: [:index, :edit, :create, :update]
 
   def index
-    @q = Sku.ransack(params[:q])
+    @q = @skus.ransack(params[:q])
     @pagy, @skus = pagy(@q.result, items: 25)
   end
 
@@ -13,7 +14,7 @@ class SkusController < ApplicationController
   end
 
   def edit
-    @sku = Sku.find(params[:id])
+    @sku = @skus.find(params[:id])
   end
 
   def create
@@ -24,7 +25,7 @@ class SkusController < ApplicationController
         redirect_to skus_path, alert: '导入文件列名改变，请检查文件或联系管理员'
       end
     else
-      sku = Sku.new(sku_params)
+      sku = @skus.new(sku_params)
       if sku.save
         redirect_to skus_path, notice: '创建成功'
       else
@@ -34,7 +35,7 @@ class SkusController < ApplicationController
   end
 
   def update
-    sku = Sku.find(params[:id])
+    sku = @skus.find(params[:id])
     if sku.update(sku_params)
       redirect_to skus_path, notice: '更新成功'
     else
@@ -45,7 +46,7 @@ class SkusController < ApplicationController
   private
 
   def sku_params
-    params.require(:sku).permit(:name).merge(shop_id: current_shop_id)
+    params.require(:sku).permit(:name).merge(shop_id: current_shop.id)
   end
 
 end

@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
 class ItemLinksController < ApplicationController
-  before_action :authenticate_current_shop!
+  before_action :redirect_unless_current_shop!
 
   def index
-    @item_links = ItemLink.all.includes(:skus)
+    @item_links = current_shop.item_links.includes(:skus)
   end
 
   def new
@@ -12,7 +12,7 @@ class ItemLinksController < ApplicationController
   end
 
   def edit
-    @item_link = ItemLink.find(params[:id])
+    @item_link = current_shop.item_links.find(params[:id])
     @sku_ids = @item_link.skus.ids
   end
 
@@ -26,7 +26,7 @@ class ItemLinksController < ApplicationController
   end
 
   def update
-    item_link = ItemLink.find(params[:id])
+    item_link = current_shop.item_links.find(params[:id])
     @sku_ids = item_link.skus.ids
     if item_link.update(item_link_params)
       redirect_to item_links_path, notice: '更新成功'
@@ -38,6 +38,6 @@ class ItemLinksController < ApplicationController
   private
 
   def item_link_params
-    params.require(:item_link).permit(:name, sku_ids: []).merge(shop_id: current_shop_id)
+    params.require(:item_link).permit(:name, sku_ids: []).merge(shop_id: current_shop.id)
   end
 end

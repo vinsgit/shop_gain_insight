@@ -1,11 +1,11 @@
 # frozen_string_literal: true
 
 class DeliveryRecordsController < ApplicationController
-  before_action :authenticate_current_shop!
+  before_action :redirect_unless_current_shop!
   before_action :set_skus, only: [:new, :edit]
 
   def index
-    @q = DeliveryRecord.includes(:sku).ransack(params[:q])
+    @q = @current_shop.delivery_records.includes(:sku).ransack(params[:q])
     @pagy, @delivery_records = pagy(@q.result, items: 25)
   end
 
@@ -14,7 +14,7 @@ class DeliveryRecordsController < ApplicationController
   end
 
   def edit
-    @delivery_record = DeliveryRecord.find(params[:id])
+    @delivery_record = @current_shop.delivery_records.find(params[:id])
   end
 
   def create
@@ -26,11 +26,12 @@ class DeliveryRecordsController < ApplicationController
   end
 
   def update
-    @delivery_record = DeliveryRecord.find(params[:id])
+    @delivery_record = @current_shop.delivery_records.find(params[:id])
     if @delivery_record.update(delivery_record_params)
       redirect_to delivery_records_path, notice: '更新成功'
     else
-      @skus = Sku.all
+      set_skus
+
       render :new
     end
   end
@@ -43,10 +44,6 @@ class DeliveryRecordsController < ApplicationController
 
   def perform_import!
     import_service(params[:delivery_record][:file]).perform!
-  end
-
-  def set_skus
-    @skus = Sku.all
   end
 
   def handle_import
@@ -63,11 +60,12 @@ class DeliveryRecordsController < ApplicationController
 
   def create_deliver_record
     @delivery_record = DeliveryRecord.new(delivery_record_params)
-    @delivery_record.shop_id = current_shop_id
+    @delivery_record.shop_id = current_shop.id
     if @delivery_record.save
       redirect_to delivery_records_path, notice: '创建成功'
     else
-      @skus = Sku.all
+      set_skus
+
       render :new
     end
   end

@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module AdPdf
-  class Import
+  class Importer
     def initialize(cost_arr)
       @cost_arr = cost_arr
     end
