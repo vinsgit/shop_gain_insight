@@ -26,8 +26,6 @@ module FbmDeliveryRecord
     private
 
     def attributes(shop_id)
-      split_ele_arr = []
-
       result = compose_content do |c|
         build_attributes(c, c[match_result[:sku_name]])
       end
