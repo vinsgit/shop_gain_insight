@@ -1,4 +1,5 @@
-当前店铺：<%= select_tag 'shop', options_for_select(Shop.all.map{|x| [x.name, x.id]}, current_shop.id), prompt: '设置当前店铺', class: 'form-select form-select-sm current-shop', style: 'max-width: 20%;' %>
+<%= render 'shop_selection' %>
+
 <br>
 
 <%= link_to '创建店铺', new_shop_path, class: 'btn btn-primary' %>

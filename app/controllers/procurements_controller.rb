@@ -1,11 +1,11 @@
 # frozen_string_literal: true
 
 class ProcurementsController < ApplicationController
-  before_action :redirect_unless_current_shop!
+  before_action :redirect_unless_current_shop
   before_action :set_skus, only: %i[new edit]
 
   def index
-    @q = current_shop.procurements.includes(:sku).ransack(params[:q])
+    @q = @current_shop.procurements.includes(:sku).ransack(params[:q])
     @pagy, @procurements = pagy(@q.result, items: 25)
   end
 
@@ -14,7 +14,7 @@ class ProcurementsController < ApplicationController
   end
 
   def edit
-    @procurement = current_shop.procurements.find(params[:id])
+    @procurement = @current_shop.procurements.find(params[:id])
   end
 
   def create
@@ -26,7 +26,7 @@ class ProcurementsController < ApplicationController
   end
 
   def update
-    @procurement = current_shop.procurements.find(params[:id])
+    @procurement = @current_shop.procurements.find(params[:id])
     if @procurement.update(procurement_params)
       redirect_to procurements_path, notice: '更新成功'
     else

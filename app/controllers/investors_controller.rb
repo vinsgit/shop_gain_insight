@@ -1,18 +1,18 @@
 # frozen_string_literal: true
 
 class InvestorsController < ApplicationController
-  before_action :redirect_unless_current_shop!
+  before_action :redirect_unless_current_shop
 
   def index
-    @investors = current_shop.investors
+    @investors = @current_shop.investors
   end
 
   def new
-    @investor = current_shop.investors.new
+    @investor = @current_shop.investors.new
   end
 
   def edit
-    @investor = current_shop.investors.find(params[:id])
+    @investor = @current_shop.investors.find(params[:id])
   end
 
   def create
@@ -25,7 +25,7 @@ class InvestorsController < ApplicationController
   end
 
   def update
-    @investor = current_shop.investors.find(params[:id])
+    @investor = @current_shop.investors.find(params[:id])
     if @investor.update(investor_params)
       redirect_to investors_path, notice: '更新成功'
     else

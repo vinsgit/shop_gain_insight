@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class AdsCostsController < ApplicationController
-  before_action :redirect_unless_current_shop!
+  before_action :redirect_unless_current_shop
 
   def new;end
 

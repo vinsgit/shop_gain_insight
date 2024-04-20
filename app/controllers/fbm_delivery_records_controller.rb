@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class FbmDeliveryRecordsController < ApplicationController
-  before_action :redirect_unless_current_shop!
+  before_action :redirect_unless_current_shop
   before_action :set_skus, only: [:new, :edit]
 
   def index
@@ -59,7 +59,7 @@ class FbmDeliveryRecordsController < ApplicationController
 
   def create_deliver_record
     @fbm_delivery_record = FbmDeliveryRecord.new(fbm_delivery_record_params)
-    @fbm_delivery_record.shop_id = current_shop.id
+    @fbm_delivery_record.shop_id = @current_shop.id
     if @fbm_delivery_record.save
       redirect_to fbm_delivery_records_path, notice: '创建成功'
     else

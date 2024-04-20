@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class SkusController < ApplicationController
-  before_action :redirect_unless_current_shop!
+  before_action :redirect_unless_current_shop
   before_action :set_skus, only: [:index, :edit, :create, :update]
 
   def index
@@ -46,7 +46,7 @@ class SkusController < ApplicationController
   private
 
   def sku_params
-    params.require(:sku).permit(:name).merge(shop_id: current_shop.id)
+    params.require(:sku).permit(:name).merge(shop_id: @current_shop.id)
   end
 
 end

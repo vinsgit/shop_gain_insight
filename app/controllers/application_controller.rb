@@ -3,10 +3,10 @@ class ApplicationController < ActionController::Base
 
   helper_method :current_shop
   def current_shop
-    @current_shop ||= ::Shop.find(session[:current_shop_id])
+    @current_shop ||= ::Shop.find(session[:current_shop_id]) if session[:current_shop_id]
   end
 
-  def redirect_unless_current_shop!
+  def redirect_unless_current_shop
     redirect_to root_path, alert: '请设置店铺' unless current_shop.present?
   end
 

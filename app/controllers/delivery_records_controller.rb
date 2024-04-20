@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class DeliveryRecordsController < ApplicationController
-  before_action :redirect_unless_current_shop!
+  before_action :redirect_unless_current_shop
   before_action :set_skus, only: [:new, :edit]
 
   def index
@@ -60,7 +60,7 @@ class DeliveryRecordsController < ApplicationController
 
   def create_deliver_record
     @delivery_record = DeliveryRecord.new(delivery_record_params)
-    @delivery_record.shop_id = current_shop.id
+    @delivery_record.shop_id = @current_shop.id
     if @delivery_record.save
       redirect_to delivery_records_path, notice: '创建成功'
     else

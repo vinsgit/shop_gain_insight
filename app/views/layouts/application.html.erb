@@ -29,6 +29,9 @@
         <ul class="navbar-nav ms-auto">
           <% if user_signed_in? %>
             <li class="nav-item">
+              <div class='nav-link'><%= current_user.email %></div>
+            </li>
+            <li class="nav-item">
               <%= link_to "退出", destroy_user_session_path, method: :delete, class: "nav-link" %>
             </li>
           <% else %>
