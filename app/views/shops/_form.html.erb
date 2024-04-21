@@ -1,6 +1,13 @@
-<%= simple_form_for @shop do |f| %>
-  <%= f.input :name, label: '店名' %>
-  <%= f.button :submit, '提交', class: 'btn btn-primary' %>
-<% end %>
-
-<%= render 'shared/back' %>
+<div class="row">
+  <div class="col-md-6">
+    <%= simple_form_for @shop do |f| %>
+      <div class="form-group mb-3">
+        <%= f.label :name, t('shops.name'), class: 'form-label' %>
+        <%= f.input_field :name, class: 'form-control', placeholder: t('shops.name') %>
+      </div>
+      <div class="form-group mb-3">
+        <%= f.button :submit, t('submit'), class: 'btn btn-primary btn-block' %>
+      </div>
+    <% end %>
+  </div>
+</div>

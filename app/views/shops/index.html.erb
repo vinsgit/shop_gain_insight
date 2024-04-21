@@ -1,21 +1,22 @@
-<table class="table">
-  <thead>
-    <tr>
-      <th>店名</th>
-      <th>操作</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @shops.each do |shop| %>
+<div class="container mt-5">
+  <table class="table mt-4">
+    <thead>
       <tr>
-        <td><%= shop.name %></td>
-        <td>
-          <%= link_to '修改', edit_shop_path(shop), class: 'btn btn-primary btn-sm' %>
-          <%= link_to '详情', shop_path(shop), class: 'btn btn-info btn-sm' %>
-        </td>
+        <th><%= t('shops.name') %></th>
+        <th><%= t('shops.actions') %></th>
       </tr>
-    <% end %>
-  </tbody>
-</table>
+    </thead>
+    <tbody>
+      <% @shops.each do |shop| %>
+        <tr>
+          <td><%= shop.name %></td>
+          <td>
+            <%= link_to t('shops.edit'), edit_shop_path(shop), class: 'btn btn-primary btn-sm me-2' %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
 
-<%= render 'shared/back' %>
+  <%= render 'shared/back' %>
+</div>

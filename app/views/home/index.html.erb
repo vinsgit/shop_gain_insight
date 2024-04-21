@@ -1,26 +1,129 @@
-<%= render 'shop_selection' %>
+<div class="container mt-5">
+  <div class="row">
+    <div class="col">
+      <h1 class="mb-5"><%= t('home.welcome_message') %></h1>
+      <%= render 'shop_selection' %>
+    </div>
+  </div>
 
-<br>
+  <div class="row mt-4">
+    <div class="col-md-6">
+      <div class="card mb-3">
+        <div class="card-body">
+          <h5 class="card-title"><%= t('home.shop') %></h5>
+          <hr>
+          <%= link_to t('home.create_shop'), new_shop_path, class: 'btn btn-primary btn-block m l' %>
+          <%= link_to t('home.shop_list'), shops_path, class: 'btn btn-info btn-block' %>
+        </div>
+      </div>
+    </div>
 
-<%= link_to '创建店铺', new_shop_path, class: 'btn btn-primary' %>
-<%= link_to '创建投资人', new_investor_path, class: 'btn btn-primary' %>
-<br><hr>
-<%= link_to '创建/导入 SKU', new_sku_path, class: 'btn btn-primary' %>
-<%= link_to '创建/导入 物流', new_shipment_path, class: 'btn btn-primary' %>
-<%= link_to '创建/导入 采购单', new_procurement_path, class: 'btn btn-primary' %>
-<%= link_to '创建/导入 发货单', new_delivery_record_path, class: 'btn btn-primary' %>
-<%= link_to '创建/导入 FBM发货单', new_fbm_delivery_record_path, class: 'btn btn-primary' %>
-<%= link_to '创建链接', new_item_link_path, class: 'btn btn-primary' %>
-<%= link_to '创建AWS订单', new_aws_order_path, class: 'btn btn-primary' %>
-<%= link_to '导入广告', new_ads_cost_path, class: 'btn btn-primary' %>
-<hr>
-<%= link_to '店铺列表', shops_path, class: 'btn btn-info' %>
-<%= link_to '投资人列表', investors_path, class: 'btn btn-info' %>
-<br><hr>
-<%= link_to 'SKU列表', skus_path, class: 'btn btn-info' %>
-<%= link_to '物流列表', shipments_path, class: 'btn btn-info' %>
-<%= link_to '采购单列表', procurements_path, class: 'btn btn-info' %>
-<%= link_to '发货单列表', delivery_records_path, class: 'btn btn-info' %>
-<%= link_to 'FBM发货单列表', fbm_delivery_records_path, class: 'btn btn-info' %>
-<%= link_to '链接列表', item_links_path, class: 'btn btn-info' %>
-<%= link_to 'AWS订单列表', aws_orders_path, class: 'btn btn-info' %>
+    <div class="col-md-6">
+      <div class="card mb-3">
+        <div class="card-body">
+          <h5 class="card-title"><%= t('home.investor') %></h5>
+          <hr>
+          <%= link_to t('home.create_investor'), new_investor_path, class: 'btn btn-primary btn-block' %>
+          <%= link_to t('home.investor_list'), investors_path, class: 'btn btn-info btn-block' %>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row mt-4">
+    <div class="col-md-6">
+      <div class="card mb-3">
+        <div class="card-body">
+          <h5 class="card-title"><%= t('home.sku') %></h5>
+          <hr>
+          <%= link_to t('home.create_sku'), new_sku_path, class: 'btn btn-primary btn-block' %>
+          <%= link_to t('home.sku_list'), skus_path, class: 'btn btn-info btn-block' %>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-6">
+      <div class="card mb-3">
+        <div class="card-body">
+          <h5 class="card-title"><%= t('home.shipment') %></h5>
+          <hr>
+          <%= link_to t('home.create_shipment'), new_shipment_path, class: 'btn btn-primary btn-block' %>
+          <%= link_to t('home.shipment_list'), shipments_path, class: 'btn btn-info btn-block' %>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row mt-4">
+    <div class="col-md-6">
+      <div class="card mb-3">
+        <div class="card-body">
+          <h5 class="card-title"><%= t('home.procurement') %></h5>
+          <hr>
+          <%= link_to t('home.create_procurement'), new_procurement_path, class: 'btn btn-primary btn-block' %>
+          <%= link_to t('home.procurement_list'), procurements_path, class: 'btn btn-info btn-block' %>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-6">
+      <div class="card mb-3">
+        <div class="card-body">
+          <h5 class="card-title"><%= t('home.delivery_record') %></h5>
+          <hr>
+          <%= link_to t('home.create_delivery_record'), new_delivery_record_path, class: 'btn btn-primary btn-block' %>
+          <%= link_to t('home.delivery_record_list'), delivery_records_path, class: 'btn btn-info btn-block' %>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row mt-4">
+    <div class="col-md-6">
+      <div class="card mb-3">
+        <div class="card-body">
+          <h5 class="card-title"><%= t('home.fbm_delivery_record') %></h5>
+          <hr>
+          <%= link_to t('home.create_fbm_delivery_record'), new_fbm_delivery_record_path, class: 'btn btn-primary btn-block' %>
+          <%= link_to t('home.fbm_delivery_record_list'), fbm_delivery_records_path, class: 'btn btn-info btn-block' %>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-6">
+      <div class="card mb-3">
+        <div class="card-body">
+          <h5 class="card-title"><%= t('home.item_link') %></h5>
+          <hr>
+          <%= link_to t('home.create_item_link'), new_item_link_path, class: 'btn btn-primary btn-block' %>
+          <%= link_to t('home.item_link_list'), item_links_path, class: 'btn btn-info btn-block' %>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row mt-4">
+    <div class="col-md-6">
+      <div class="card mb-3">
+        <div class="card-body">
+          <h5 class="card-title"><%= t('home.aws_order') %></h5>
+          <hr>
+          <%= link_to t('home.create_aws_order'), new_aws_order_path, class: 'btn btn-primary btn-block' %>
+          <%= link_to t('home.aws_order_list'), aws_orders_path, class: 'btn btn-info btn-block' %>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-6">
+      <div class="card mb-3">
+        <div class="card-body">
+          <h5 class="card-title"><%= t('home.import_ads') %></h5>
+          <hr>
+          <%= link_to t('home.import_ads'), new_ads_cost_path, class: 'btn btn-primary btn-block' %>
+          <!-- Add link to the corresponding list if applicable -->
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>

@@ -1,3 +1,6 @@
 <% if Shop.first.present? %>
-  当前店铺：<%= select_tag 'shop', options_for_select(Shop.all.map{|x| [x.name, x.id]}, @current_shop&.id), prompt: '设置当前店铺', class: 'form-select form-select-sm current-shop', style: 'max-width: 20%;' %>
+  <div class="d-flex align-items-center mb-3">
+    <label class="form-label me-2"><%= t('home.current_shop') %>:</label>
+    <%= select_tag 'shop', options_for_select(Shop.all.map{|x| [x.name, x.id]}, @current_shop&.id), prompt: t('home.set_current_shop'), class: 'form-select form-select-sm flex-grow-1 mb-2 current-shop', style: 'max-width: 20%;' %>
+  </div>
 <% end %>

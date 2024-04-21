@@ -1,33 +1,53 @@
-# Files in the config/locales directory are used for internationalization
-# and are automatically loaded by Rails. If you want to use locales other
-# than English, add the necessary files in this directory.
-#
-# To use the locales, use `I18n.t`:
-#
-#     I18n.t "hello"
-#
-# In views, this is aliased to just `t`:
-#
-#     <%= t("hello") %>
-#
-# To use a different locale, set it with `I18n.locale`:
-#
-#     I18n.locale = :es
-#
-# This would use the information in config/locales/es.yml.
-#
-# The following keys must be escaped otherwise they will not be retrieved by
-# the default I18n backend:
-#
-# true, false, on, off, yes, no
-#
-# Instead, surround them with single quotes.
-#
-# en:
-#   "true": "foo"
-#
-# To learn more, please read the Rails Internationalization guide
-# available at https://guides.rubyonrails.org/i18n.html.
-
-en:
-  hello: "Hello world"
+en: 
+  zh-cn: '中文'
+  en: 'English'
+  login: 'Login'
+  logout: 'Logout'
+  register: 'Register'
+  emai: 'Email'
+  passwrod: 'Password'
+  amazon_profit_calculator: 'Amazon Profit Calculator'
+  back_to_home: 'Back To Home'
+  submit: 'Submit'
+  back: 'Back'
+  please_set_current_shop: 'Please set current shop'
+  home:
+    welcome_message: 'Welcome to Shop Management System'
+    current_shop: 'Current shop'
+    set_current_shop: 'Set current shop'
+    shop: 'Shop'
+    create_shop: 'Create Shop'
+    shop_list: 'Shop List'
+    investor: 'Investor'
+    create_investor: 'Create Investor'
+    investor_list: 'Investor List'
+    sku: 'SKU'
+    create_sku: 'Create SKU'
+    sku_list: 'SKU List'
+    shipment: 'Shipment'
+    create_shipment: 'Create Shipment'
+    shipment_list: 'Shipment List'
+    procurement: 'Procurement'
+    create_procurement: 'Create Procurement'
+    procurement_list: 'Procurement List'
+    delivery_record: 'Delivery Record'
+    create_delivery_record: 'Create Delivery Record'
+    delivery_record_list: 'Delivery Record List'
+    fbm_delivery_record: 'FBM Delivery Record'
+    create_fbm_delivery_record: 'Create FBM Delivery Record'
+    fbm_delivery_record_list: 'FBM Delivery Record List'
+    item_link: 'Item Link'
+    create_item_link: 'Create Item Link'
+    item_link_list: 'Item Link List'
+    aws_order: 'AWS Order'
+    create_aws_order: 'Create AWS Order'
+    aws_order_list: 'AWS Order List'
+    import_ads: 'Import Ads'
+  shops:
+    name: 'Shop Name'
+    actions: 'Actions'
+    edit: 'Edit'
+    details: 'Details'
+    create_shop: 'Create Shop'
+    edit_shop: 'Edit Shop'
+    submit: 'Submit'

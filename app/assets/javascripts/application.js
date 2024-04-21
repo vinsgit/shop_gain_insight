@@ -23,3 +23,7 @@ $(document).on('change', '.current-shop', function(){
     data: { shop_id: selectedValue }
   });
 })
+
+$(document).ready(function() {
+  $('.dropdown-toggle').dropdown();
+});
