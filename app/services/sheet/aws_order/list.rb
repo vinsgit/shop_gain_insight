@@ -60,6 +60,10 @@ module AwsOrder
 
     end
 
+    # ['Liquidations', 'order-id']
+    # because some of amazon sheets have only field 'order-id'
+    # some have only 'Liquidations' field
+    # But the value both just represent as amazon order ID
     def match_fields
       { settle_id: 'settlement-id',
         sku_name: 'sku',

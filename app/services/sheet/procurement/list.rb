@@ -6,17 +6,19 @@ module Procurement
     def import!(shop_id)
       return false unless key_fields_not_existed?
 
+      # get the extracted data from the sheet and compose the attributes to an array
       attrs = attributes(shop_id)
 
       # validate_attributes!(attrs, :sku_id, :item_link_id)
-
       attrs.each do |att|
+
         # Remove this after data is correct
         next if att[:sku_id].blank? || att[:item_link_id].blank?
-        # Remove this after data is correct
 
-        str = att.delete(:investors)
-        procurement_investors = extract_investors(str).map{|attrs| ProcurementInvestor.new(**attrs) }
+        # Remove this after data is correct
+        investor_str = att.delete(:investors)
+
+        procurement_investors = extract_investors(investor_str).map{|attrs| ProcurementInvestor.new(**attrs) }
 
         r = ::Procurement.find_or_initialize_by(sku_id: att[:sku_id], shop_id: shop_id, purchased_at: att[:purchased_at])
 
@@ -30,13 +32,12 @@ module Procurement
 
     private
 
+    # extract the data from the  procurement sheet and compose the attributes into an array
     def attributes(shop_id)
       array = compose_content do |c|
         # TODO
-        # Remove this after new sheet comes
-        # 
+        # Remove this after the finalized sheet comes
         next if c[0] == '折后价-合计'
-
         sku_id = ::Sku.find_by(shop_id: shop_id, name: c[match_result[:sku_name]])&.id
         item_link_id = ::ItemLink.find_by(shop_id: shop_id, name: c[match_result[:item_link_name]])&.id
         {
@@ -51,7 +52,6 @@ module Procurement
           investors: c[match_result[:investors]]
         }
       end
-
       composed_attributes(array)
     end
 
@@ -97,8 +97,14 @@ module Procurement
 
       end.compact_blank!
     end
+
+    # Background: In a sheet table, some cells are merged into one.
+    # The actual operation is to only let the value exist in the first column,
+    # modify the style of all merged columns, and center-align the value.
+    # So the function of this is to, like the fill-button at the bottom right of the cell, copy the value of the first row to all merged columns.
+    #
     # TODO
-    # Extra this into base class
+    # move this into base class
     def composed_attributes(array)
       most_recent_item_link_name = nil
       most_recent_purchased_at = nil

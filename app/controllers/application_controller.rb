@@ -13,6 +13,7 @@ class ApplicationController < ActionController::Base
     redirect_to root_path, alert: t('please_set_current_shop') unless current_shop.present?
   end
 
+    # Initialize a new instance of the Sheet::Processor for importing data
   def import_service(file)
     Sheet::Processor.new(file, current_shop.id)
   end

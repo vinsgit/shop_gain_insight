@@ -42,10 +42,12 @@ class ProcurementsController < ApplicationController
     params.require(:procurement).permit(:sku_id, :qty, :unit_price, :total_price, :delivery_fee, :received_qty, :note, :purchased_at)
   end
 
+  # Perform import of procurement data from the sheetfile
   def perform_import!
     import_service(params[:procurement][:file]).perform!
   end
 
+  # Handle file import, redirecting based on success or failure
   def handle_import
     begin
       if perform_import!
