@@ -1,26 +1,26 @@
 <% if is_new_or_create? %>
   <button id='import-toggle' class='btn btn-info'>
-    切换导入方式
+    <%= t('switch_import_method')%>
   </button>
   <br>
 <% end %>
 
 <%= simple_form_for @fbm_delivery_record, html: { class: 'fbm_delivery_record-form' } do |f| %>
   <% if is_new_or_create? %>
-    <%= f.input :file, label: '通过文件导入', as: :file, input_html: { class: 'form-control' } %>
+    <%= f.input :file, label: t('form.file'), as: :file, input_html: { class: 'form-control' } %>
   <% end %>
   <%= f.label :sku_id, class: 'fbm_delivery_record_sku_id' %>
   <%= f.input :sku_id, label: false, as: :select, input_html: { class: 'select2', style: 'width: 40%;' }, collection: @skus.map{|x| [x.name, x.id]}, selected: @fbm_delivery_record.sku_id %>
-  <%= f.input :purchased_at, as: :string, label: '采购日期', input_html: { class: 'flatpickr' } %>
-  <%= f.input :amt, label: '采购金额' %>
-  <%= f.input :purchase_note, label: '采购情况' %>
-  <%= f.input :delivery_method, label: '发货方式' %>
-  <%= f.input :delivery_status, label: '发货状态' %>
-  <%= f.input :order_note, label: '做单？' %>
-  <%= f.input :aws_order_ref, label: 'AWS订单号' %>
-  <%= f.input :note, label: '备注' %>
+  <%= f.input :purchased_at, as: :string, label: t('fbm_delivery_record.purchased_at'), input_html: { class: 'flatpickr' } %>
+  <%= f.input :amt, label: t('fbm_delivery_record.amt') %>
+  <%= f.input :purchase_note, label: t('fbm_delivery_record.purchase_note') %>
+  <%= f.input :delivery_method, label: t('fbm_delivery_record.delivery_method') %>
+  <%= f.input :delivery_status, label: t('fbm_delivery_record.delivery_status') %>
+  <%= f.input :order_note, label: t('fbm_delivery_record.order_note') %>
+  <%= f.input :aws_order_ref, label: t('fbm_delivery_record.aws_order_ref') %>
+  <%= f.input :note, label: t('fbm_delivery_record.note') %>
 
-  <%= f.button :submit, '提交', class: 'btn btn-primary' %>
+  <%= f.button :submit, t('form.submit'), class: 'btn btn-primary' %>
 <% end %>
 
 <%= render 'shared/back' %>

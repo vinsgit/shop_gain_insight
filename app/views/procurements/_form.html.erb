@@ -1,25 +1,25 @@
 <% if is_new_or_create? %>
   <button id='import-toggle' class='btn btn-info'>
-    切换导入方式
+    <%= t('switch_import_method')%>
   </button>
   <br>
 <% end %>
 
 <%= simple_form_for @procurement, html: { class: 'procurement-form' } do |f| %>
   <% if is_new_or_create? %>
-    <%= f.input :file, label: '通过文件导入', as: :file, input_html: { class: 'form-control' } %>
+    <%= f.input :file, label: t('form.file'), as: :file, input_html: { class: 'form-control' } %>
   <% end %>
   <%= f.label :sku_id, class: 'procurement_sku_id' %>
   <%= f.input :sku_id, label: false, as: :select, input_html: { class: 'select2', style: 'width: 40%;' }, collection: @skus.map{|x| [x.name, x.id]}, selected: @procurement.sku_id %>
-  <%= f.input :qty, label: '采购数量' %>
-  <%= f.input :unit_price, label: '单价(￥)' %>
-  <%= f.input :total_price, label: '总单价(￥)' %>
-  <%= f.input :delivery_fee, label: '运费(￥)' %>
-  <%= f.input :received_qty, label: '实到数量' %>
-  <%= f.input :purchased_at, as: :string, label: '采购时间', input_html: { class: 'flatpickr-date' } %>
-  <%= f.input :note, label: '备注' %>
+  <%= f.input :qty, label: t('procurement.qty') %>
+  <%= f.input :unit_price, label: t('procurement.unit_price') %>
+  <%= f.input :total_price, label: t('procurement.total_price') %>
+  <%= f.input :delivery_fee, label: t('procurement.delivery_fee') %>
+  <%= f.input :received_qty, label: t('procurement.received_qty') %>
+  <%= f.input :purchased_at, as: :string, label: t('procurement.purchased_at'), input_html: { class: 'flatpickr-date' } %>
+  <%= f.input :note, label: t('procurement.note') %>
 
-  <%= f.button :submit, '提交', class: 'btn btn-primary' %>
+  <%= f.button :submit, t('form.submit'), class: 'btn btn-primary' %>
 <% end %>
 
 <%= render 'shared/back' %>

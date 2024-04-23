@@ -1,4 +1,4 @@
-<%= link_to '创建/导入 物流', new_shipment_path, class: 'btn btn-primary' %>
+<%= link_to t('titles.shipment.create'), new_shipment_path, class: 'btn btn-primary' %>
 <br>
 
 <%= render 'filters' %>
@@ -6,12 +6,12 @@
 <table class="table">
   <thead>
     <tr>
-      <th>AWS订单号</th>
-      <th>运单号</th>
-      <th>费用</th>
-      <th>渠道</th>
-      <th>记录时间</th>
-      <th>操作</th>
+      <th><%= t('shipment.aws_order_ref') %></th>
+      <th><%= t('shipment.order_ref') %></th>
+      <th><%= t('shipment.total_fee') %></th>
+      <th><%= t('shipment.channel_in_text') %></th>
+      <th><%= t('shipment.transaction_at') %></th>
+      <th><%= t('actions.title') %></th>
     </tr>
   </thead>
   <tbody>
@@ -23,7 +23,7 @@
         <td><%= r.channel_in_text %></td>
         <td><%= r.transaction_at&.strftime('%Y-%m-%d %H:%M:%S') %></td>
         <td>
-          <%= link_to '修改', edit_shipment_path(r), class: 'btn btn-primary btn-sm' %>
+          <%= link_to t('actions.edit'), edit_shipment_path(r), class: 'btn btn-primary btn-sm' %>
         </td>
       </tr>
     <% end %>

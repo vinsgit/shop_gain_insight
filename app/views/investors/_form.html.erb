@@ -1,15 +1,15 @@
 <%= simple_form_for @investor do |f| %>
   <div class='row'>
     <div class='col-md-4'>
-    <%= f.input :name, label: '名字' %>
+    <%= f.input :name, label: t('investor.name') %>
     </div>
   </div>
   <%= f.nested_fields_for :equity_allocation_records do |ff| %>
     <%= render 'equity_allocation_record_fields', f: ff %>
   <% end %>
-  <%= f.add_nested_fields_link :equity_allocation_records, '添加分成' %>
+  <%= f.add_nested_fields_link :equity_allocation_records, t('investor.add_ratio') %>
   <br>
-  <%= f.button :submit, '提交', class: 'btn btn-primary' %>
+  <%= f.button :submit, t('form.submit'), class: 'btn btn-primary' %>
 <% end %>
 
 

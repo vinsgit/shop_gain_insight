@@ -1,53 +1,146 @@
 en: 
-  zh-cn: '中文'
-  en: 'English'
-  login: 'Login'
-  logout: 'Logout'
-  register: 'Register'
-  emai: 'Email'
-  passwrod: 'Password'
-  amazon_profit_calculator: 'Amazon Profit Calculator'
-  back_to_home: 'Back To Home'
-  submit: 'Submit'
-  back: 'Back'
-  please_set_current_shop: 'Please set current shop'
+  zh-cn: 中文
+  en: English
+  login: Login
+  logout: Logout
+  register: Register
+  emai: Email
+  passwrod: Password
+  back_to_home: Back to Home
+  success: Success
+  back: Back
+  please_set_current_shop: Please set current shop
+  pdf_file: PDF File
+  file: File
+  actions:
+    title: Actions
+    edit: Edit
+    details: Details
+  titles:
+    amazon_profit_calculator: Amazon Profit Calculator
+    welcome_message: Welcome To Amazon Profit Calculator System
+    shop:
+      details: Details
+      create: Create Shop
+      edit: Edit Shop
+      list: Shop List
+    investor:
+      create: Create Investor
+      list: Investor List
+      edit: Edit Investor
+    sku:
+      create: Create SKU
+      list: SKU List
+      edit: Edit SKU
+    shipment:
+      create: Create Shipment
+      list: Shipment List
+      edit: Edit Shipment
+    procurement:
+      create: Create Procurement
+      list: Procurement List
+      edit: Edit Procurement
+    delivery_record:
+      create: Create Delivery Record
+      list: Delivery Record List
+      edit: Edit Delivery Record
+    fbm_delivery_record:
+      create: Create FBM Delivery Record
+      list: FBM Delivery Record List
+      edit: Edit FBM Delivery Record
+    item_link:
+      create: Create Item Link
+      list: Item Link List
+      edit: Edit Item Link
+    aws_order:
+      create: Create Aws Order
+      list: Aws OrderList
+      edit: Edit AWS Order
+    ads_cost:
+      create: Create Ads Cost
+  ranges:
+    investor:
+      ratio_range: Please enter a number between 0.00 and 1.00.
+  form:
+    submit: Submit
+    file: Import File
+    select_file: Choose File
+    filter: Filter
+    switch_import_method: Switch Import Method
+    delete: Delete
   home:
-    welcome_message: 'Welcome to Shop Management System'
-    current_shop: 'Current shop'
-    set_current_shop: 'Set current shop'
-    shop: 'Shop'
-    create_shop: 'Create Shop'
-    shop_list: 'Shop List'
-    investor: 'Investor'
-    create_investor: 'Create Investor'
-    investor_list: 'Investor List'
-    sku: 'SKU'
-    create_sku: 'Create SKU'
-    sku_list: 'SKU List'
-    shipment: 'Shipment'
-    create_shipment: 'Create Shipment'
-    shipment_list: 'Shipment List'
-    procurement: 'Procurement'
-    create_procurement: 'Create Procurement'
-    procurement_list: 'Procurement List'
-    delivery_record: 'Delivery Record'
-    create_delivery_record: 'Create Delivery Record'
-    delivery_record_list: 'Delivery Record List'
-    fbm_delivery_record: 'FBM Delivery Record'
-    create_fbm_delivery_record: 'Create FBM Delivery Record'
-    fbm_delivery_record_list: 'FBM Delivery Record List'
-    item_link: 'Item Link'
-    create_item_link: 'Create Item Link'
-    item_link_list: 'Item Link List'
-    aws_order: 'AWS Order'
-    create_aws_order: 'Create AWS Order'
-    aws_order_list: 'AWS Order List'
-    import_ads: 'Import Ads'
-  shops:
-    name: 'Shop Name'
-    actions: 'Actions'
-    edit: 'Edit'
-    details: 'Details'
-    create_shop: 'Create Shop'
-    edit_shop: 'Edit Shop'
-    submit: 'Submit'
+    current_shop: Current shop
+    set_current_shop: Set current shop
+    shop: Shop
+    investor: Investor
+    sku: SKU
+    shipment: Shipment
+    procurement: Procurement
+    delivery_record: Delivery Record
+    fbm_delivery_record: FBM Delivery Record
+    item_link: Item Link
+    aws_order: AWS Order
+    ads: Ads
+  shop:
+    name: Shop Name
+  investor:
+    name: Investor Name
+    add_ratio: Add Ratio
+    ratio: Ratio
+    start_at: Start At
+    end_at: End At
+  sku:
+    shop_id: Shop ID
+    name: SKU
+    price: Price
+    ads_cost: Ads Cost
+    note: Note
+    created_at: Created At
+  shipment:
+    aws_order_ref: Amazon Order Ref
+    order_ref: Amazon Order Ref
+    total_fee: Total Fee
+    channel_in_text: Channel In Text
+    transaction_at: Transaction At
+  procurement:
+    qty: 'Quantity'
+    unit_price: 'Unit Price'
+    total_price: 'Total Price'
+    delivery_fee: 'Delivery Fee'
+    received_qty: 'Received Quantity'
+    purchased_at: 'Purchased At'
+    note: 'Note'
+  delivery_record:
+    deliver_at: Delivery Date
+    sku_id: SKU ID
+    arrived_count: Actual Arrival Count
+    sent_count: Box 1
+    stock_qty: 剩余数量
+  fbm_delivery_record:
+    aws_order_ref: Amazon Order Ref
+    purchase_note: Purchase Note
+    delivery_method: Delivery Method
+    delivery_status: Delivery Status
+    order_note: Order Note
+    purchased_at: Purchased At
+    amt: Amount
+    note: Note
+  item_link:
+    name: Item Link Name
+    skus_count: SKU Count
+    sku_ids: SKU IDs
+  aws_order:
+    date: Date
+    create_aws_order: Create / Import AWS Order
+    merchant_order_ref: Merchant Order Ref
+    order_ref_cont: Order Ref Cont
+    desc_cont: Desc Cont
+    amt_type_cont: Amt Type Cont
+    amt: Amount
+    desc: Description
+    amend_amt: Amend Amount
+    manual_amend_amt: Manual Amend Amount
+    total_amt: Total Amount
+    note: Note
+  ads_cost:
+    create: Import Ads Cost PDF

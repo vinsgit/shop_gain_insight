@@ -1,6 +1,6 @@
 <% if is_new_or_create? %>
   <button id='import-toggle' class='btn btn-info'>
-    切换导入方式
+    <%= t('switch_import_method')%>
   </button>
   <br>
 <% end %>
@@ -15,16 +15,16 @@
 </div>
 <%= simple_form_for @shipment, html: { class: 'shipment-form' } do |f| %>
   <% if is_new_or_create? %>
-    <%= f.input :file, label: '通过文件导入', as: :file, input_html: { class: 'form-control' } %>
-    <%= f.input :file2, label: '通过文件导入', as: :file, input_html: { class: 'form-control' } %>
+    <%= f.input :file, label: t('form.file'), as: :file, input_html: { class: 'form-control' } %>
+    <%= f.input :file2, label: t('form.file'), as: :file, input_html: { class: 'form-control' } %>
   <% end %>
-  <%= f.input :aws_order_ref, label: 'aws订单号' %>
-  <%= f.input :order_ref, label: '运单号' %>
-  <%= f.input :total_fee, label: '费用(￥)' %>
-  <%= f.input :transaction_at, as: :string, label: '记录时间', input_html: { class: 'flatpickr' } %>
-  <%= f.input :channel, label: '渠道', collection: Shipment.channel_options.invert.to_a, selected: @shipment.channel %>
+  <%= f.input :aws_order_ref, label: t('shipment.aws_order_ref') %>
+  <%= f.input :order_ref, label: t('shipment.order_ref') %>
+  <%= f.input :total_fee, label: t('shipment.total_fee') %>
+  <%= f.input :transaction_at, as: :string, label: t('shipment.transaction_at'), input_html: { class: 'flatpickr' } %>
+  <%= f.input :channel, label: t('shipment.channel_in_text'), collection: Shipment.channel_options.invert.to_a, selected: @shipment.channel %>
 
-  <%= f.button :submit, '提交', class: 'btn btn-primary' %>
+  <%= f.button :submit, t('form.submit'), class: 'btn btn-primary' %>
 <% end %>
 
 <%= render 'shared/back' %>

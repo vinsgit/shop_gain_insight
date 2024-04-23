@@ -1,17 +1,17 @@
 <% if is_new_or_create? %>
   <button id='import-toggle' class='btn btn-info'>
-    切换导入方式
+    <%= t('switch_import_method')%>
   </button>
 <% end %>
 <%= simple_form_for @sku, html: { class: 'sku-form' } do |f| %>
   <% if is_new_or_create? %>
-    <%= f.input :file, label: '通过文件导入', as: :file, input_html: { class: 'form-control' } %>
+    <%= f.input :file, label: t('form.file'), as: :file, input_html: { class: 'form-control' } %>
   <% end %>
-  <%= f.input :shop_id, label: '所属店铺', collection: Shop.all.map{ |c| [c.name, c.id] }, selected: @sku.shop_id %>
-  <%= f.input :name, label: 'SKU' %>
-  <%= f.input :price, label: '售价' %>
-  <%= f.input :note, label: '备注' %>
-  <%= f.button :submit, '提交', class: 'btn btn-primary' %>
+  <%= f.input :shop_id, label: t('sku.shop_id'), collection: Shop.all.map{ |c| [c.name, c.id] }, selected: @sku.shop_id %>
+  <%= f.input :name, label: t('sku.name') %>
+  <%= f.input :price, label: t('sku.price') %>
+  <%= f.input :note, label: t('sku.note') %>
+  <%= f.button :submit, t('form.submit'), class: 'btn btn-primary' %>
 <% end %>
 
 <%= render 'shared/back' %>

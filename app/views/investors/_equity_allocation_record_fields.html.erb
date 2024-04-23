@@ -1,7 +1,7 @@
 <div class="nested-fields">
-  <%= f.input :ratio, label: '比例', input_html: { step: 0.01, max: 1 }, hint: '请填0.00 - 1.00之间的数' %>
-  <%= f.input :start_at, label: '生效时间', as: :string, input_html: { class: 'flatpickr' } %>
-  <%= f.input :end_at, label: '结束时间', as: :string, input_html: { class: 'flatpickr' } %>
+  <%= f.input :ratio, label: t('investor.ratio'), input_html: { step: 0.01, max: 1 }, hint: t('ranges.investor.ratio_range') %>
+  <%= f.input :start_at, label: t('investor.start_at'), as: :string, input_html: { class: 'flatpickr' } %>
+  <%= f.input :end_at, label:t('investor.end_at'), as: :string, input_html: { class: 'flatpickr' } %>
 </div>
-<%= f.remove_nested_fields_link '删除' %>
+<%= f.remove_nested_fields_link t('form.delete') %>
 <hr>

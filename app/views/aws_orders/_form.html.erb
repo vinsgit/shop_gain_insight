@@ -2,19 +2,18 @@
   <% unless is_new_or_create? %>
     <%= f.label :sku_id %>
     <%= f.input :sku_id, label: false, as: :select, input_html: { class: 'select2', style: 'width: 40%;' }, include_blank: true, collection: @skus.map{|x| [x.name, x.id]}, selected: @aws_order.sku_id %>
-    <%= f.input :order_ref, label: 'aws订单号' %>
-    <%= f.input :merchant_order_ref, label: '商家订单号' %>
-    <%= f.input :amt, label: '金额' %>
-    <%= f.input :promotion_ref, label: '促销ID' %>
-    <%= f.input :desc, label: '金额说明' %>
-    <%= f.input :manual_amend_amt, label: '人工补充金额' %>
-    <%= f.input :posted_at, as: :string, label: '日期', input_html: { class: 'flatpickr' } %>
-    <%= f.input :note, label: '备注' %>
+    <%= f.input :order_ref, label: t('aws_order.order_ref') %>
+    <%= f.input :merchant_order_ref, label: t('aws_order.merchant_order_ref') %>
+    <%= f.input :amt, label: t('aws_order.amt') %>
+    <%= f.input :promotion_ref, label: t('aws_order.promotion_ref') %>
+    <%= f.input :desc, label: t('aws_order.desc') %>
+    <%= f.input :manual_amend_amt, label: t('aws_order.manual_amend_amt') %>
+    <%= f.input :posted_at, as: :string, label: t('aws_order.posted_at'), input_html: { class: 'flatpickr' } %>
+    <%= f.input :note, label: t('aws_order.note') %>
   <% else %>
-    <%= f.input :file, label: '通过文件导入', as: :file, input_html: { class: 'form-control' } %>
+    <%= f.input :file, label: t('form.import_file'), as: :file, input_html: { class: 'form-control' } %>
   <% end %>
-
-  <%= f.button :submit, '提交', class: 'btn btn-primary' %>
+  <%= f.button :submit, t('form.submit'), class: 'btn btn-primary btn-block' %>
 <% end %>
 
 <%= render 'shared/back' %>

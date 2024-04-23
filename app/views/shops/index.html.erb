@@ -2,8 +2,8 @@
   <table class="table mt-4">
     <thead>
       <tr>
-        <th><%= t('shops.name') %></th>
-        <th><%= t('shops.actions') %></th>
+        <th><%= t('shop.name') %></th>
+        <th><%= t('actions.title') %></th>
       </tr>
     </thead>
     <tbody>
@@ -11,7 +11,7 @@
         <tr>
           <td><%= shop.name %></td>
           <td>
-            <%= link_to t('shops.edit'), edit_shop_path(shop), class: 'btn btn-primary btn-sm me-2' %>
+            <%= link_to t('titles.shop.edit'), edit_shop_path(shop), class: 'btn btn-primary btn-sm me-2' %>
           </td>
         </tr>
       <% end %>

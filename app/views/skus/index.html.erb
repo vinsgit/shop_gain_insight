@@ -3,10 +3,10 @@
 <table class="table">
   <thead>
     <tr>
-      <th>SKU</th>
-      <th>售价</th>
-      <th>导入时间</th>
-      <th>操作</th>
+      <th><%= t('sku.name') %></th>
+      <th><%= t('sku.price') %></th>
+      <th><%= t('sku.created_at') %></th>
+      <th><%= t('actions.title') %></th>
     </tr>
   </thead>
   <tbody>
@@ -14,11 +14,11 @@
       <tr>
         <td><%= sku.name %></td>
         <td><%= sku.price %> $</td>
-        <td><%= sku.created_at.strftime('%Y-%m-%d %H:%M:%S') %> $</td>
+        <td><%= sku.created_at.strftime('%Y-%m-%d %H:%M:%S') %></td>
         <td>
-          <%= link_to '修改', edit_sku_path(sku), class: 'btn btn-primary btn-sm' %>
+          <%= link_to t('actions.edit'), edit_sku_path(sku), class: 'btn btn-primary btn-sm' %>
           <!-- TODO 详情页 TBD -->
-          <% link_to '详情', sku_path(sku), class: 'btn btn-info btn-sm' %>
+          <% link_to t('actions.details'), sku_path(sku), class: 'btn btn-info btn-sm' %>
         </td>
       </tr>
     <% end %>

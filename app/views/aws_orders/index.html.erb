@@ -4,17 +4,17 @@
   <thead>
     <tr>
       <th>SKU</th>
-      <th>日期</th>
-      <th>AWS订单</th>
-      <th>商家订单</th>
-      <th>金额</th>
-      <th>金额类型</th>
-      <th>金额说明</th>
-      <th>额外补充金额</th>
-      <th>人工补充金额</th>
-      <th>核算总金额</th>
-      <th>备注</th>
-      <th>操作</th>
+      <th><%= t('aws_order.date') %></th>
+      <th><%= t('aws_order.order_ref_cont') %></th>
+      <th><%= t('aws_order.merchant_order_ref') %></th>
+      <th><%= t('aws_order.amt') %></th>
+      <th><%= t('aws_order.amt_type_cont') %></th>
+      <th><%= t('aws_order.desc') %></th>
+      <th><%= t('aws_order.amend_amt')%></th>
+      <th><%= t('aws_order.manual_amend_amt') %></th>
+      <th><%= t('aws_order.total_amt') %></th>
+      <th><%= t('aws_order.note') %></th>
+      <th><%= t('actions.title') %></th>
     </tr>
   </thead>
   <tbody>
@@ -32,7 +32,7 @@
         <td><%= aws_order.total_amt %></td>
         <td><%= aws_order.note %></td>
         <td>
-          <%= link_to '修改', edit_aws_order_path(aws_order), class: 'btn btn-primary btn-sm' %>
+          <%= link_to '修改', edit_path(aws_order), class: 'btn btn-primary btn-sm' %>
         </td>
       </tr>
     <% end %>

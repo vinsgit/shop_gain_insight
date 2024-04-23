@@ -1,21 +1,21 @@
 <% if is_new_or_create? %>
   <button id='import-toggle' class='btn btn-info'>
-    切换导入方式
+    <%= t('switch_import_method')%>
   </button>
   <br>
 <% end %>
 
 <%= simple_form_for @delivery_record, html: { class: 'delivery_record-form' } do |f| %>
   <% if is_new_or_create? %>
-    <%= f.input :file, label: '通过文件导入', as: :file, input_html: { class: 'form-control' } %>
+    <%= f.input :file, label: t('form.file'), as: :file, input_html: { class: 'form-control' } %>
   <% end %>
-  <%= f.input :deliver_at, as: :string, label: '发货日期', input_html: { class: 'flatpickr' } %>
+  <%= f.input :deliver_at, as: :string, label: t('delivery_record.deliver_at'), input_html: { class: 'flatpickr' } %>
   <%= f.label :sku_id, class: 'delivery_record_sku_id' %>
   <%= f.input :sku_id, label: false, as: :select, input_html: { class: 'select2', style: 'width: 40%;' }, collection: @skus.map{|x| [x.name, x.id]}, selected: @delivery_record.sku_id %>
-  <%= f.input :arrived_count, label: '实到数量' %>
-  <%= f.input :sent_count, label: '箱1' %>
+  <%= f.input :arrived_count, label: t('delivery_record.arrived_count') %>
+  <%= f.input :sent_count, label: t('delivery_record.sent_count') %>
 
-  <%= f.button :submit, '提交', class: 'btn btn-primary' %>
+  <%= f.button :submit, t('form.submit'), class: 'btn btn-primary' %>
 <% end %>
 
 <%= render 'shared/back' %>

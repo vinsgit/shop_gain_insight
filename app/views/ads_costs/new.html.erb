@@ -1,5 +1,5 @@
 <%= form_with(url: ads_costs_path, local: true, html: { class: 'form-group' }) do |form| %>
-  <%= form.label '广告PDF', class: 'form-label' %>
+  <%= form.label t('pdf_file'), class: 'form-label' %>
   <%= form.file_field :files, multiple: true, class: 'form-control' %>
-  <%= form.submit '解析', class: 'btn btn-primary mt-3' %>
+  <%= form.submit t('form.submit'), class: 'btn btn-primary mt-3' %>
 <% end %>

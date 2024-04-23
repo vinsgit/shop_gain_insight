@@ -1,4 +1,4 @@
-<%= link_to '创建/导入 发货单', new_delivery_record_path, class: 'btn btn-primary' %>
+<%= link_to t('titles.delivery_record.create'), new_delivery_record_path, class: 'btn btn-primary' %>
 <br>
 
 <%= render 'filters' %>
@@ -6,21 +6,21 @@
 <table class="table">
   <thead>
     <tr>
-      <th>发货日期</th>
-      <th>类型</th>
-      <th>商品SKU</th>
-      <th>实到数量</th>
-      <th>箱1</th>
-      <th>剩余数量</th>
-      <th>操作</th>
+      <th><%= t('delivery_record.deliver_at')%></th>
+      <th><%= t('delivery_record.status')%></th>
+      <th><%= t('sku.name')%></th>
+      <th><%= t('delivery_record.arrived_count')%></th>
+      <th><%= t('delivery_record.sent_count')%></th>
+      <th><%= t('delivery_record.stock_qty')%></th>
+      <th><%= t('actions.name')%></th>
     </tr>
   </thead>
   <tbody>
     <% @delivery_records.each do |r| %>
       <tr>
         <td><%= r.deliver_at&.strftime('%Y-%m-%d') %></td>
-        <td><%= r.sku.name %></td>
         <td><%= r.status %></td>
+        <td><%= r.sku.name %></td>
         <td><%= r.arrived_count %></td>
         <td><%= r.sent_count %></td>
         <td><%= r.stock_qty %></td>

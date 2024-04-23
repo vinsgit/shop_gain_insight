@@ -3,15 +3,15 @@
   <div class="form-group mb-2">
     <%= f.label :sku_name_cont, 'SKU', class: 'mr-2' %>
     <%= f.search_field :sku_name_cont, class: 'form-control mr-2' %>
-    <%= f.label :merchant_order_ref_cont, '商家订单号', class: 'mr-2' %>
+    <%= f.label :merchant_order_ref_cont, t('aws_order.merchant_order_ref'), class: 'mr-2' %>
     <%= f.search_field :merchant_order_ref_cont, class: 'form-control mr-2' %>
-    <%= f.label :order_ref_cont, 'AWS订单号', class: 'mr-2' %>
+    <%= f.label :order_ref_cont, t('aws_order.order_ref_cont'), class: 'mr-2' %>
     <%= f.search_field :order_ref_cont, class: 'form-control mr-2' %>
-    <%= f.label :desc_cont, '金额说明', class: 'mr-2' %>
+    <%= f.label :desc_cont, t('aws_order.desc_cont'), class: 'mr-2' %>
     <%= f.search_field :desc_cont, class: 'form-control mr-2' %>
-    <%= f.label :amt_type_cont, '金额类型', class: 'mr-2' %>
+    <%= f.label :amt_type_cont, t('aws_order.amt_type_cont'), class: 'mr-2' %>
     <%= f.search_field :amt_type_cont, class: 'form-control mr-2' %>
   </div>
-  <%= f.submit '筛选', class: 'btn btn-primary mb-2' %>
+  <%= f.submit t('form.submit'), class: 'btn btn-primary mb-2' %>
 <% end %>
 <hr>

@@ -1,4 +1,4 @@
-<%= link_to '创建/导入 采购单', new_procurement_path, class: 'btn btn-primary' %>
+<%= link_to t('titles.procurement.create'), new_procurement_path, class: 'btn btn-primary' %>
 <br>
 
 <%= render 'filters' %>
@@ -6,15 +6,15 @@
 <table class="table">
   <thead>
     <tr>
-      <th>SKU</th>
-      <th>采购数量</th>
-      <th>单价(￥)</th>
-      <th>总单价(￥)</th>
-      <th>运费(￥)</th>
-      <th>实到数量</th>
-      <th>采购时间</th>
-      <th>备注</th>
-      <th>操作</th>
+      <th><%= t('sku.name')%></th>
+      <th><%= t('procurement.qty')%></th>
+      <th><%= t('procurement.unit_price')%></th>
+      <th><%= t('procurement.total_price')%></th>
+      <th><%= t('procurement.delivery_fee')%></th>
+      <th><%= t('procurement.received_qty')%></th>
+      <th><%= t('procurement.purchased_at')%></th>
+      <th><%= t('procurement.purchased_at')%></th>
+      <th><%= t('actions.note')%></th>
     </tr>
   </thead>
   <tbody>
@@ -29,7 +29,7 @@
         <td><%= r.purchased_at&.strftime('%Y-%m-%d') %></td>
         <td><%= r.note %></td>
         <td>
-          <%= link_to '修改', edit_procurement_path(r), class: 'btn btn-primary btn-sm' %>
+          <%= link_to t('actions.edit'), edit_procurement_path(r), class: 'btn btn-primary btn-sm' %>
         </td>
       </tr>
     <% end %>

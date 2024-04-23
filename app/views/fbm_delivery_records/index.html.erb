@@ -1,4 +1,4 @@
-<%= link_to '创建/导入 FBM发货单', new_fbm_delivery_record_path, class: 'btn btn-primary' %>
+<%= link_to t('titles.fbm_delivery_record.create'), new_fbm_delivery_record_path, class: 'btn btn-primary' %>
 <br>
 
 <%= render 'filters' %>
@@ -6,21 +6,20 @@
 <table class="table">
   <thead>
     <tr>
-      <th>AWS订单号</th>
-      <th>SKU</th>
-      <th>采购情况</th>
-      <th>发送方式</th>
-      <th>发货状态</th>
-      <th>做单情况</th>
-      <th>采购日期</th>
-      <th>采购金额</th>
-      <th>链接</th>
-      <th>备注</th>
-      <th>操作</th>
+      <th><%= t('fbm_delivery_record.aws_order_ref')%></th>
+      <th><%= t('sku.name')%></th>
+      <th><%= t('fbm_delivery_record.purchase_note')%></th>
+      <th><%= t('fbm_delivery_record.delivery_method')%></th>
+      <th><%= t('fbm_delivery_record.delivery_status')%></th>
+      <th><%= t('fbm_delivery_record.order_note')%></th>
+      <th><%= t('fbm_delivery_record.purchased_at')%></th>
+      <th><%= t('fbm_delivery_record.amt')%></th>
+      <th><%= t('fbm_delivery_record.item_link')%></th>
+      <th><%= t('fbm_delivery_record.note')%></th>
+      <th><%= t('actions.title')%></th>
     </tr>
   </thead>
   <tbody>
-
     <% @fbm_delivery_records.each do |r| %>
       <tr>
         <td><%= r.aws_order_ref %></td>
