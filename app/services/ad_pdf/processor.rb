@@ -17,7 +17,7 @@ module AdPdf
     end
 
     def reader_service
-      @reader_service ||= ReaderService.new(file)
+      @reader_service ||= Reader.new(@file)
     end
   end
-  end
+end

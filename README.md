@@ -24,6 +24,10 @@ git clone <repository-url>
 # Navigate to the project folder
 cd project-folder
 
+# Make sure you have ghostscript installed
+Mac: brew install ghostscript
+Linux: sudo apt-get install ghostscript
+
 # Install dependencies
 bundle install
 

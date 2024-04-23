@@ -4,6 +4,7 @@ module AdPdf
   class Reader
     MARK_TO_SPLIT = '--'
     CURRENCY_MARK = ' USD'
+    AD_HEADER = ['Campaign', 'Campaign type', 'Clicks', 'Average CPC', 'Amount (ex. Tax)']
 
     def initialize(file)
       @file = file
@@ -19,10 +20,17 @@ module AdPdf
 
     # SKU分割规则：--
     # 如 abc--手动, abc为sku
+    # Extract SKU and cost pairs from the table
     def sku_cost_arr
-      content[1][1..-1].map do |x|
-        sku = x.first.split(MARK_TO_SPLIT)[0]
-        cost = x.last.remove!(CURRENCY_MARK)
+      header_index = find_header_index
+      return [] unless header_index
+
+      cost_arr = content[header_index]
+      sku_index = cost_arr.first.find_index('Campaign')
+      cost_index = cost_arr.first.find_index('Amount (ex. Tax)')
+      content[header_index][1..-1].map do |row|
+        sku = row[sku_index].split(MARK_TO_SPLIT).first
+        cost = row[cost_index].delete(CURRENCY_MARK)
         [sku, cost]
       end
     end
@@ -33,5 +41,9 @@ module AdPdf
       @content ||= Iguvium.read(@file).flat_map { |page| page.extract_tables! }.map(&:to_a)
     end
 
+    # Find the index of the array containing the header
+    def find_header_index
+      content.find_index { |inner_array| (inner_array.first & AD_HEADER).size == AD_HEADER.size }
+    end
   end
 end
