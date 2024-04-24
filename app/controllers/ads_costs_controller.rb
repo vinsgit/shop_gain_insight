@@ -6,9 +6,11 @@ class AdsCostsController < ApplicationController
   def new;end
 
   def create
-    params[:files].compact_blank.each do |file|
+    params[:files].compact_blank.map do |file|
       ad_pdf_service(file).update!
     end
+
+    redirect_to new_ads_cost_path, notice: t('success')
   end
 
   private
