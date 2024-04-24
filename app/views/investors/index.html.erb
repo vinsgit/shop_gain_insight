@@ -2,13 +2,20 @@
   <thead>
     <tr>
       <th><%= t('investor.name')%></th>
+      <th><%= t('investor.ratio')%></th>
+      <th><%= t('investor.start_at')%></th>
+      <th><%= t('investor.end_at')%></th>
       <th><%= t('actions.title')%></th>
     </tr>
   </thead>
   <tbody>
     <% @investors.each do |investor| %>
+      <% current_allocation = investor.current_equity_allocation_record %>
       <tr>
         <td><%= investor.name %></td>
+        <td><%= current_allocation&.ratio %></td>
+        <td><%= current_allocation&.start_at %></td>
+        <td><%= current_allocation&.end_at %></td>
         <td>
           <%= link_to '修改', edit_investor_path(investor), class: 'btn btn-primary btn-sm' %>
           <%= link_to '详情', investor_path(investor), class: 'btn btn-info btn-sm' %>

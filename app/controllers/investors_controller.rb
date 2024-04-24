@@ -8,7 +8,7 @@ class InvestorsController < ApplicationController
   end
 
   def new
-    @investor = @current_shop.investors.new
+    @investor = Investor.new
   end
 
   def edit
@@ -16,7 +16,7 @@ class InvestorsController < ApplicationController
   end
 
   def create
-    @investor = Investor.new(investor_params)
+    @investor = @current_shop.investors.new(investor_params)
     if @investor.save
       redirect_to investors_path, notice: '创建成功'
     else
