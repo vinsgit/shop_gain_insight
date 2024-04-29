@@ -3,6 +3,7 @@
 class AwsOrdersController < ApplicationController
   before_action :redirect_unless_current_shop
   before_action :set_skus, only: [:new, :edit]
+  before_action :set_order, only: [:edit, :update]
 
   def index
     @q = @current_shop.aws_orders.includes(:sku).ransack(params[:q])
@@ -25,18 +26,20 @@ class AwsOrdersController < ApplicationController
     end
   end
 
-  def edit
-    @aws_order = @current_shop.aws_orders.find(params[:id])
-  end
+  def edit;end
 
   def update
-    @aws_order = @current_shop.aws_orders.find(params[:id])
     @aws_order.update(permitted_params)
+    redirect_to aws_orders_path, notice: "修改成功 Order Ref: #{@aws_order.order_ref}"
   end
 
   private
 
   def permitted_params
     params.require(:aws_order).permit(:sku_id, :order_ref, :merchant_order_ref, :amt, :promotion_ref, :desc, :amend_amt, :note, :posted_at)
+  end
+
+  def set_order
+    @aws_order = @current_shop.aws_orders.find(params[:id])
   end
 end

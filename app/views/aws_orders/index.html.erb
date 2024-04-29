@@ -32,7 +32,7 @@
         <td><%= aws_order.total_amt %></td>
         <td><%= aws_order.note %></td>
         <td>
-          <%= link_to '修改', edit_path(aws_order), class: 'btn btn-primary btn-sm' %>
+          <%= link_to '修改', edit_aws_order_path(aws_order), class: 'btn btn-primary btn-sm' %>
         </td>
       </tr>
     <% end %>

@@ -20,7 +20,7 @@
   <tbody>
     <% @procurements.each do |r| %>
       <tr>
-        <td><%= r.sku.name %></td>
+        <td><%= r.sku&.name %></td>
         <td><%= r.qty %></td>
         <td><%= r.unit_price %></td>
         <td><%= r.total_price %></td>

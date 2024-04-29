@@ -8,8 +8,6 @@ module FbmDeliveryRecord
 
       attrs = attributes(shop_id)
 
-      # validate_attributes!(attrs, :sku_id, :item_link_id)
-
       attrs.each do |att|
         # Remove this after data is correct
         next if att[:sku_id].blank?

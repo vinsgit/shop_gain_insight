@@ -3,6 +3,7 @@
 class FbmDeliveryRecordsController < ApplicationController
   before_action :redirect_unless_current_shop
   before_action :set_skus, only: [:new, :edit]
+  before_action :set_delivery_record, only: [:edit, :update]
 
   def index
     @q = @current_shop.fbm_delivery_records.includes(:sku).ransack(params[:q])
@@ -13,9 +14,7 @@ class FbmDeliveryRecordsController < ApplicationController
     @fbm_delivery_record = FbmDeliveryRecord.new
   end
 
-  def edit
-    @fbm_delivery_record = @current_shop.fbm_delivery_records.find(params[:id])
-  end
+  def edit;end
 
   def create
     if params.dig(:fbm_delivery_record, :file).present?
@@ -26,11 +25,11 @@ class FbmDeliveryRecordsController < ApplicationController
   end
 
   def update
-    @fbm_delivery_record = @current_shop.fbm_delivery_records.find(params[:id])
     if @fbm_delivery_record.update(fbm_delivery_record_params)
       redirect_to fbm_delivery_records_path, notice: '更新成功'
     else
       @skus = Sku.all
+
       render :new
     end
   end
@@ -67,5 +66,9 @@ class FbmDeliveryRecordsController < ApplicationController
 
       render :new
     end
+  end
+
+  def set_delivery_record
+    @fbm_delivery_record = @current_shop.fbm_delivery_records.find(params[:id])
   end
 end

@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class ShopsController < ApplicationController
+  before_action :set_shop, only: [:edit, :update]
+
   def index
     @shops = Shop.all
   end
@@ -9,9 +11,7 @@ class ShopsController < ApplicationController
     @shop = Shop.new
   end
 
-  def edit
-    @shop = Shop.find(params[:id])
-  end
+  def edit;end
 
   def create
     shop = Shop.new(shop_params)
@@ -24,8 +24,7 @@ class ShopsController < ApplicationController
 
 
   def update
-    shop = Shop.find(params[:id])
-    if shop.update(shop_params)
+    if @shop.update(shop_params)
       redirect_to shops_path, notice: '更新成功'
     else
       render :new
@@ -36,5 +35,9 @@ class ShopsController < ApplicationController
 
   def shop_params
     params.require(:shop).permit(:name)
+  end
+
+  def set_shop
+    @shop = Shop.find(params[:id])
   end
 end

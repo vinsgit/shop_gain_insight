@@ -2,6 +2,7 @@
 
 class InvestorsController < ApplicationController
   before_action :redirect_unless_current_shop
+  before_action :set_investor, only: [:edit, :update]
 
   def index
     @investors = @current_shop.investors
@@ -11,9 +12,7 @@ class InvestorsController < ApplicationController
     @investor = Investor.new
   end
 
-  def edit
-    @investor = @current_shop.investors.find(params[:id])
-  end
+  def edit;end
 
   def create
     @investor = @current_shop.investors.new(investor_params)
@@ -25,7 +24,6 @@ class InvestorsController < ApplicationController
   end
 
   def update
-    @investor = @current_shop.investors.find(params[:id])
     if @investor.update(investor_params)
       redirect_to investors_path, notice: '更新成功'
     else
@@ -39,4 +37,7 @@ class InvestorsController < ApplicationController
     params.require(:investor).permit(:name, equity_allocation_records_attributes: [:id, :ratio, :start_at, :end_at, :_destroy])
   end
 
+  def set_investor
+    @investor = @current_shop.investors.find(params[:id])
+  end
 end

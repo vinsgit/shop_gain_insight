@@ -22,7 +22,6 @@ module Sf
         {:order_ref => k, :total_fee => v.sum { |h| h[:total_fee].to_d }}
       end
     end
-
     def header
       row(first_row - 1) if first_row.present?
     end
@@ -45,7 +44,7 @@ module Sf
       last = @sheet.last_row
       @last_row ||= ((last - 30)..last).detect do |i|
         next if row(i).first.blank?
-        ['合计', '合 计'].any? {|k| k.in?(row(i).first) }
+        ['合计', '合 计'].any? {|k| k.in?(row(i)) }
       end
     end
 

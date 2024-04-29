@@ -9,7 +9,6 @@ module Procurement
       # get the extracted data from the sheet and compose the attributes to an array
       attrs = attributes(shop_id)
 
-      # validate_attributes!(attrs, :sku_id, :item_link_id)
       attrs.each do |att|
 
         # Remove this after data is correct

@@ -3,6 +3,7 @@
 class DeliveryRecordsController < ApplicationController
   before_action :redirect_unless_current_shop
   before_action :set_skus, only: [:new, :edit]
+  before_action :set_delivery_record, only: [:edit, :update]
 
   def index
     @q = @current_shop.delivery_records.includes(:sku).ransack(params[:q])
@@ -13,9 +14,7 @@ class DeliveryRecordsController < ApplicationController
     @delivery_record = DeliveryRecord.new
   end
 
-  def edit
-    @delivery_record = @current_shop.delivery_records.find(params[:id])
-  end
+  def edit;end
 
   def create
     if params.dig(:delivery_record, :file).present?
@@ -26,7 +25,6 @@ class DeliveryRecordsController < ApplicationController
   end
 
   def update
-    @delivery_record = @current_shop.delivery_records.find(params[:id])
     if @delivery_record.update(delivery_record_params)
       redirect_to delivery_records_path, notice: '更新成功'
     else
@@ -68,5 +66,9 @@ class DeliveryRecordsController < ApplicationController
 
       render :new
     end
+  end
+
+  def set_delivery_record
+    @delivery_record = @current_shop.delivery_records.find(params[:id])
   end
 end

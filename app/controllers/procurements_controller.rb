@@ -2,7 +2,8 @@
 
 class ProcurementsController < ApplicationController
   before_action :redirect_unless_current_shop
-  before_action :set_skus, only: %i[new edit]
+  before_action :set_skus, only: [:new, :edit]
+  before_action :set_procurement, only: [:edit, :update]
 
   def index
     @q = @current_shop.procurements.includes(:sku).ransack(params[:q])
@@ -14,7 +15,6 @@ class ProcurementsController < ApplicationController
   end
 
   def edit
-    @procurement = @current_shop.procurements.find(params[:id])
   end
 
   def create
@@ -26,7 +26,6 @@ class ProcurementsController < ApplicationController
   end
 
   def update
-    @procurement = @current_shop.procurements.find(params[:id])
     if @procurement.update(procurement_params)
       redirect_to procurements_path, notice: '更新成功'
     else
@@ -71,4 +70,7 @@ class ProcurementsController < ApplicationController
     end
   end
 
+  def set_procurement
+    @procurement = @current_shop.procurements.find(params[:id])
+  end
 end

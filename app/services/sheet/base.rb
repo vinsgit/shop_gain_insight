@@ -75,19 +75,5 @@ module Sheet
       Date.new(1899, 12, 30) + number.to_i
     end
 
-    # Validate attributes to ensure no string values are present
-    # This method is not currently in use because the Excel format is not yet finalized
-    def validate_attributes!(attrs, *keys)
-      invalid_values = []
-
-      attrs.each do |attr|
-        keys.each do |key|
-          value = attr[key]
-          invalid_values << value if value.is_a?(String)
-        end
-      end
-
-      raise ::Sheet::Errors::AttributeError, invalid_values unless invalid_values.empty?
-    end
   end
 end

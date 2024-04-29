@@ -3,6 +3,7 @@
 class SkusController < ApplicationController
   before_action :redirect_unless_current_shop
   before_action :set_skus, only: [:index, :edit, :create, :update]
+  before_action :set_sku, only: [:edit, :update]
 
   def index
     @q = @skus.ransack(params[:q])
@@ -13,9 +14,7 @@ class SkusController < ApplicationController
     @sku = Sku.new
   end
 
-  def edit
-    @sku = @skus.find(params[:id])
-  end
+  def edit;end
 
   def create
     if params.dig(:sku, :file).present?
@@ -35,8 +34,7 @@ class SkusController < ApplicationController
   end
 
   def update
-    sku = @skus.find(params[:id])
-    if sku.update(sku_params)
+    if @sku.update(sku_params)
       redirect_to skus_path, notice: '更新成功'
     else
       render :new
@@ -46,7 +44,10 @@ class SkusController < ApplicationController
   private
 
   def sku_params
-    params.require(:sku).permit(:name).merge(shop_id: @current_shop.id)
+    params.require(:sku).permit(:name, :price).merge(shop_id: @current_shop.id)
   end
 
+  def set_sku
+    @sku = @skus.find(params[:id])
+  end
 end

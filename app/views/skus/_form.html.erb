@@ -9,7 +9,7 @@
   <% end %>
   <%= f.input :shop_id, label: t('sku.shop_id'), collection: Shop.all.map{ |c| [c.name, c.id] }, selected: @sku.shop_id %>
   <%= f.input :name, label: t('sku.name') %>
-  <%= f.input :price, label: t('sku.price') $ %>
+  <%= f.input :price, label: "#{t('sku.price')} $" %>
   <%= f.input :note, label: t('sku.note') %>
   <%= f.button :submit, t('form.submit'), class: 'btn btn-primary' %>
 <% end %>
